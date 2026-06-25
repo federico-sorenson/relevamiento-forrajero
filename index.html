@@ -147,7 +147,7 @@
   <div class="config-section">
     <h3><span>🗂️</span> Mapa de ambientes</h3>
     <label class="file-btn" for="fileShp">📂 Cargar GeoJSON / ZIP con Shapefile</label>
-    <input type="file" id="fileShp" accept=".zip,.geojson,.json,application/json,application/geo+json" style="display:none" onchange="loadShapefile(this)"/>
+    <input type="file" id="fileShp" accept="*/*" style="display:none" onchange="loadShapefile(this)"/>
     <div class="loaded-file" id="loadedFile">Ningún archivo cargado</div>
     <button class="btn-secondary" style="margin-top:8px;width:100%" onclick="clearMap()">🗑 Limpiar mapa cargado</button>
   </div>
