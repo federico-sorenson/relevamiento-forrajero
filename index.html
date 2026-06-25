@@ -20,7 +20,7 @@ nav h1{font-size:1rem;font-weight:700;flex:1}
 .gps-badge{font-size:.72rem;padding:3px 8px;border-radius:12px;background:rgba(255,255,255,.2)}
 .gps-badge.ok{background:#1b5e20}
 .tabs{display:flex;background:#fff;border-bottom:2px solid var(--gris-l);flex-shrink:0}
-.tab{flex:1;padding:10px 4px;text-align:center;font-size:.78rem;font-weight:600;color:var(--gris);cursor:pointer;border:none;background:none;transition:.2s}
+.tab{flex:1;padding:10px 4px;text-align:center;font-size:.78rem;font-weight:600;color:var(--gris);cursor:pointer;border:none;background:none}
 .tab.active{color:var(--verde);border-bottom:2px solid var(--verde);margin-bottom:-2px}
 .screen{flex:1;overflow-y:auto;display:none;flex-direction:column}
 .screen.active{display:flex}
@@ -43,35 +43,40 @@ nav h1{font-size:1rem;font-weight:700;flex:1}
 .field-group input[readonly]{background:#f5f5f5;color:#555}
 .field-group textarea{resize:vertical;min-height:60px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.detected-badge{background:var(--verde-ll);border:1.5px solid var(--verde-l);color:var(--verde);border-radius:8px;padding:9px 10px;font-size:.9rem;font-weight:600;display:flex;align-items:center;gap:6px}
-.detected-badge .icon{font-size:1rem}
+.detected-badge{background:var(--verde-ll);border:1.5px solid var(--verde-l);color:var(--verde);border-radius:8px;padding:9px 10px;font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:6px;min-height:40px}
 .btn-primary{width:100%;padding:13px;background:var(--verde);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px}
 .btn-secondary{width:100%;padding:11px;background:var(--gris-l);color:var(--gris);border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;margin-top:6px}
-.audio-row{display:flex;gap:8px;margin-bottom:12px}
-.btn-audio{flex:1;padding:10px;border-radius:8px;border:1.5px solid var(--verde-l);background:var(--verde-ll);color:var(--verde);font-weight:600;font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-audio{width:100%;padding:10px;border-radius:8px;border:1.5px solid var(--verde-l);background:var(--verde-ll);color:var(--verde);font-weight:600;font-size:.85rem;cursor:pointer;margin-bottom:12px}
 .btn-audio.recording{background:#ffebee;border-color:#e53935;color:#e53935;animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 
 /* CONFIG */
 .config-section{background:#fff;margin:10px;border-radius:12px;padding:14px;box-shadow:var(--shadow)}
-.config-section h3{font-size:.88rem;font-weight:700;color:var(--verde);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.config-section h3{font-size:.88rem;font-weight:700;color:var(--verde);margin-bottom:12px}
 .layer-item{display:flex;align-items:center;gap:8px;padding:9px 10px;background:var(--gris-ll);border-radius:8px;margin-bottom:6px;font-size:.82rem}
 .layer-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
 .layer-info{flex:1;min-width:0}
 .layer-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .layer-meta{font-size:.72rem;color:#90a4ae}
-.layer-del{background:none;border:none;color:#ef9a9a;font-size:1.1rem;cursor:pointer}
-.layer-del:hover{color:#e53935}
+.layer-del{background:none;border:none;color:#ef9a9a;font-size:1.1rem;cursor:pointer;padding:4px}
 .add-layer-btn{display:block;width:100%;padding:11px;background:var(--gris-l);color:var(--gris);border:none;border-radius:8px;font-size:.88rem;cursor:pointer;text-align:center;font-weight:600;margin-bottom:6px}
-.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
-.tag{background:var(--verde-ll);color:var(--verde);padding:4px 10px;border-radius:20px;font-size:.8rem;display:flex;align-items:center;gap:4px}
-.tag button{background:none;border:none;cursor:pointer;color:#c62828;font-size:.9rem;line-height:1}
-.add-row{display:flex;gap:6px}
-.add-row input,.add-row select{flex:1;padding:8px;border:1.5px solid #cfd8dc;border-radius:8px;font-size:.85rem}
-.add-row button{padding:8px 14px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:.85rem;cursor:pointer;white-space:nowrap}
 .status-msg{font-size:.78rem;margin-top:6px;padding:6px 10px;border-radius:6px;background:var(--gris-ll);color:var(--gris)}
 .status-msg.ok{background:var(--verde-ll);color:var(--verde)}
 .status-msg.err{background:#ffebee;color:#c62828}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tag{background:var(--verde-ll);color:var(--verde);padding:4px 10px;border-radius:20px;font-size:.8rem;display:flex;align-items:center;gap:4px}
+.tag button{background:none;border:none;cursor:pointer;color:#c62828;font-size:.9rem}
+.add-row{display:flex;gap:6px}
+.add-row input{flex:1;padding:8px;border:1.5px solid #cfd8dc;border-radius:8px;font-size:.85rem}
+.add-row button{padding:8px 14px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-size:.85rem;cursor:pointer;white-space:nowrap}
+
+/* AMBIENTE EDITOR */
+.amb-editor{margin-top:10px}
+.amb-row{display:flex;align-items:center;gap:8px;padding:8px;background:var(--gris-ll);border-radius:8px;margin-bottom:6px}
+.amb-swatch{width:28px;height:28px;border-radius:6px;flex-shrink:0;border:1px solid rgba(0,0,0,.15)}
+.amb-code{font-size:.72rem;color:#90a4ae;flex-shrink:0;width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.amb-input{flex:1;padding:6px 8px;border:1.5px solid #cfd8dc;border-radius:6px;font-size:.82rem;background:#fff}
+.amb-input::placeholder{color:#b0bec5}
 
 /* RESUMEN */
 .resumen-area{padding:10px;display:flex;flex-direction:column;gap:10px}
@@ -100,15 +105,12 @@ tr:last-child td{border:none}
 .wp-vals{font-size:.75rem;color:var(--gris);margin-top:4px}
 .wp-del{background:none;border:none;color:#ef9a9a;font-size:1.2rem;cursor:pointer;padding:4px}
 
-/* LAYER TYPE SELECT MODAL */
-.layer-type-modal{background:#fff;border-radius:20px 20px 0 0;width:100%;padding:20px 16px 32px}
-.layer-type-modal h2{font-size:1rem;color:var(--verde);margin-bottom:16px;display:flex;justify-content:space-between}
+/* LAYER TYPE MODAL */
 .layer-type-btn{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border:1.5px solid var(--gris-l);border-radius:10px;background:#fff;margin-bottom:8px;cursor:pointer;text-align:left}
 .layer-type-btn:hover{border-color:var(--verde);background:var(--verde-ll)}
-.layer-type-btn .lt-icon{font-size:1.5rem;width:36px;text-align:center}
-.layer-type-btn .lt-info{flex:1}
-.layer-type-btn .lt-title{font-weight:700;font-size:.9rem}
-.layer-type-btn .lt-desc{font-size:.75rem;color:#90a4ae}
+.lt-icon{font-size:1.5rem;width:36px;text-align:center}
+.lt-title{font-weight:700;font-size:.9rem}
+.lt-desc{font-size:.75rem;color:#90a4ae}
 </style>
 </head>
 <body>
@@ -125,7 +127,6 @@ tr:last-child td{border:none}
   <button class="tab" onclick="showTab('config',this)">⚙️ Config</button>
 </div>
 
-<!-- MAPA -->
 <div class="screen active" id="screen-mapa">
   <div class="map-wrap">
     <div id="map"></div>
@@ -136,12 +137,10 @@ tr:last-child td{border:none}
   </div>
 </div>
 
-<!-- WAYPOINTS -->
 <div class="screen" id="screen-waypoints">
   <div class="wp-list" id="wpList"></div>
 </div>
 
-<!-- RESUMEN -->
 <div class="screen" id="screen-resumen">
   <div class="export-row">
     <button class="btn-export btn-csv" onclick="exportCSV()">⬇ CSV</button>
@@ -150,14 +149,20 @@ tr:last-child td{border:none}
   <div class="resumen-area" id="resumenArea"></div>
 </div>
 
-<!-- CONFIG -->
 <div class="screen" id="screen-config">
-
   <div class="config-section">
     <h3>🗂️ Capas del mapa</h3>
     <div id="layerList"></div>
-    <button class="add-layer-btn" onclick="openLayerTypeModal()">＋ Agregar capa</button>
+    <button class="add-layer-btn" onclick="openModal('modalLayerType')">＋ Agregar capa</button>
     <div class="status-msg" id="layerStatus">Sin capas cargadas</div>
+  </div>
+
+  <!-- Editor de ambientes -->
+  <div class="config-section" id="ambEditorSection" style="display:none">
+    <h3>🎨 Ambientes — asignar nombres</h3>
+    <p style="font-size:.78rem;color:#90a4ae;margin-bottom:10px">Cada color/valor detectado en el mapa. Escribí un nombre o dejalo vacío para usar solo el color.</p>
+    <div class="amb-editor" id="ambEditor"></div>
+    <button class="btn-primary" style="margin-top:10px" onclick="applyAmbienteNames()">✅ Aplicar nombres al mapa</button>
   </div>
 
   <div class="config-section">
@@ -177,35 +182,30 @@ tr:last-child td{border:none}
       <button onclick="addCampo()">+ Agregar</button>
     </div>
   </div>
-
 </div>
 
 <!-- MODAL WAYPOINT -->
 <div class="modal-overlay" id="modalWP" onclick="closeModalOutside(event,'modalWP')">
   <div class="modal">
     <h2>📍 Nuevo Waypoint <button onclick="closeModal('modalWP')">✕</button></h2>
-
     <div class="field-group">
       <label>Coordenadas GPS</label>
       <input type="text" id="wpCoords" readonly/>
     </div>
-
     <div class="row2">
       <div class="field-group">
-        <label>Lote (auto-detectado)</label>
-        <div class="detected-badge" id="wpLoteDetected"><span class="icon">🏡</span><span id="wpLoteTxt">—</span></div>
+        <label>Lote</label>
+        <div class="detected-badge"><span id="wpLoteTxt">—</span></div>
       </div>
       <div class="field-group">
-        <label>Ambiente (auto-detectado)</label>
-        <div class="detected-badge" id="wpAmbDetected"><span class="icon">🌿</span><span id="wpAmbTxt">—</span></div>
+        <label>Ambiente</label>
+        <div class="detected-badge" id="wpAmbBadge"><span id="wpAmbSwatch" style="width:14px;height:14px;border-radius:3px;display:inline-block;flex-shrink:0"></span><span id="wpAmbTxt">—</span></div>
       </div>
     </div>
-
     <div class="field-group">
       <label>Tipo de recurso forrajero</label>
       <select id="wpRecurso"></select>
     </div>
-
     <div class="row2">
       <div class="field-group">
         <label>kgMS/ha</label>
@@ -216,22 +216,16 @@ tr:last-child td{border:none}
         <input type="number" id="wpCalidad" placeholder="3" min="1" max="5" step="0.5"/>
       </div>
     </div>
-
     <div id="camposExtra"></div>
-
-    <div class="audio-row">
-      <button class="btn-audio" id="btnRecord" onclick="toggleRecord()">🎙️ Grabar nota de voz</button>
-    </div>
+    <button class="btn-audio" id="btnRecord" onclick="toggleRecord()">🎙️ Grabar nota de voz</button>
     <div id="transcripcionBox" style="display:none" class="field-group">
       <label>Transcripción</label>
       <textarea id="wpTranscripcion" rows="2"></textarea>
     </div>
-
     <div class="field-group">
       <label>Notas escritas</label>
       <textarea id="wpNotas" rows="2" placeholder="Observaciones adicionales..."></textarea>
     </div>
-
     <button class="btn-primary" onclick="saveWaypoint()">💾 Guardar waypoint</button>
     <button class="btn-secondary" onclick="closeModal('modalWP')">Cancelar</button>
   </div>
@@ -239,162 +233,203 @@ tr:last-child td{border:none}
 
 <!-- MODAL TIPO DE CAPA -->
 <div class="modal-overlay" id="modalLayerType" onclick="closeModalOutside(event,'modalLayerType')">
-  <div class="layer-type-modal">
+  <div class="modal">
     <h2>Tipo de capa <button onclick="closeModal('modalLayerType')">✕</button></h2>
     <button class="layer-type-btn" onclick="triggerFileLoad('lotes')">
       <span class="lt-icon">🏡</span>
-      <div class="lt-info"><div class="lt-title">Lotes</div><div class="lt-desc">GeoJSON con polígonos de lotes (campo Name)</div></div>
+      <div><div class="lt-title">Lotes</div><div class="lt-desc">GeoJSON de polígonos de lotes</div></div>
     </button>
     <button class="layer-type-btn" onclick="triggerFileLoad('ambientes')">
       <span class="lt-icon">🌿</span>
-      <div class="lt-info"><div class="lt-title">Ambientes</div><div class="lt-desc">GeoJSON vectorizado desde raster de ambientes</div></div>
+      <div><div class="lt-title">Ambientes</div><div class="lt-desc">GeoJSON vectorizado (campo DN, nombre u otro)</div></div>
     </button>
     <button class="layer-type-btn" onclick="triggerFileLoad('extra')">
       <span class="lt-icon">💧</span>
-      <div class="lt-info"><div class="lt-title">Capa extra (aguadas, etc.)</div><div class="lt-desc">GeoJSON con cualquier información adicional</div></div>
+      <div><div class="lt-title">Capa extra</div><div class="lt-desc">Aguadas, infraestructura u otra información</div></div>
     </button>
     <input type="file" id="fileInput" accept="*/*" style="display:none" onchange="loadLayer(this)"/>
   </div>
 </div>
 
 <script>
-// ─── STATE ───────────────────────────────────────────────────────────────────
-const LAYER_COLORS = {lotes:'#1565c0', ambientes:'#2e7d32', extra:'#e65100'};
-const LAYER_LABELS = {lotes:'Lotes', ambientes:'Ambientes', extra:'Extra'};
+// ─── UTILS DE COLOR ──────────────────────────────────────────────────────────
 
-const state = {
-  pos: null,
-  waypoints: [],
-  recursos: ['Pastura','Monte nativo','Verdeo','Campo natural'],
-  campos: ['Altura (cm)','% cobertura'],
-  layers: [], // {id, tipo, name, geojson, leafletLayer, campoNombre, campoAmbiente}
-  pendingLayerType: null,
-  recording: false,
-  recognition: null,
-};
-
-// Load from localStorage
-try{ state.waypoints = JSON.parse(localStorage.getItem('wps_v2')||'[]'); }catch(e){}
-try{ state.recursos = JSON.parse(localStorage.getItem('recursos')||JSON.stringify(state.recursos)); }catch(e){}
-try{ state.campos = JSON.parse(localStorage.getItem('campos')||JSON.stringify(state.campos)); }catch(e){}
-
-function saveWPs(){ localStorage.setItem('wps_v2', JSON.stringify(state.waypoints)); }
-function saveCfg(){
-  localStorage.setItem('recursos', JSON.stringify(state.recursos));
-  localStorage.setItem('campos', JSON.stringify(state.campos));
+// Convierte entero DN a hex CSS. Soporta RGB como int (R*65536 + G*256 + B)
+function dnToHex(dn){
+  const n = parseInt(dn);
+  if(isNaN(n)) return null;
+  // Valores grandes → probablemente RGB codificado
+  if(n > 65535){
+    const r=(n>>16)&0xFF, g=(n>>8)&0xFF, b=n&0xFF;
+    return `#${hex2(r)}${hex2(g)}${hex2(b)}`;
+  }
+  // Valores pequeños → paleta automática
+  return null;
 }
+function hex2(v){ return v.toString(16).padStart(2,'0'); }
+
+// Paleta para valores no-RGB (textos, números pequeños)
+const PALETTE=['#e53935','#8e24aa','#1e88e5','#00897b','#f4511e','#c0ca33','#6d4c41','#039be5','#43a047','#fdd835','#d81b60','#3949ab','#00acc1','#7cb342','#fb8c00','#b71c1c','#4a148c','#01579b','#1b5e20','#e65100'];
+function paletteColor(idx){ return PALETTE[idx % PALETTE.length]; }
+
+// Contraste texto sobre fondo
+function textColor(hex){
+  const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  return (0.299*r+0.587*g+0.114*b)>128?'#222':'#fff';
+}
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const state = {
+  pos:null,
+  waypoints:[],
+  recursos:['Pastura','Monte nativo','Verdeo','Campo natural'],
+  campos:['Altura (cm)','% cobertura'],
+  layers:[],           // capas vectoriales
+  ambienteMap:{},      // {valorOriginal: {color, nombre}}
+  pendingLayerType:null,
+  recording:false,
+  recognition:null,
+};
+try{state.waypoints=JSON.parse(localStorage.getItem('wps_v3')||'[]');}catch(e){}
+try{state.recursos=JSON.parse(localStorage.getItem('recursos')||JSON.stringify(state.recursos));}catch(e){}
+try{state.campos=JSON.parse(localStorage.getItem('campos')||JSON.stringify(state.campos));}catch(e){}
+try{state.ambienteMap=JSON.parse(localStorage.getItem('ambienteMap')||'{}');}catch(e){}
+
+function saveWPs(){localStorage.setItem('wps_v3',JSON.stringify(state.waypoints));}
+function saveCfg(){
+  localStorage.setItem('recursos',JSON.stringify(state.recursos));
+  localStorage.setItem('campos',JSON.stringify(state.campos));
+}
+function saveAmbMap(){localStorage.setItem('ambienteMap',JSON.stringify(state.ambienteMap));}
 
 // ─── MAP ─────────────────────────────────────────────────────────────────────
-const map = L.map('map',{zoomControl:false}).setView([-34.6,-60.5],10);
+const map=L.map('map',{zoomControl:false}).setView([-34.6,-60.5],10);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM',maxZoom:19}).addTo(map);
 L.control.zoom({position:'topleft'}).addTo(map);
+let posMarker=null;
+const wpMarkers=[];
 
-let posMarker = null;
-const wpMarkers = [];
+function centerGPS(){if(state.pos)map.setView([state.pos.lat,state.pos.lng],16);}
 
-function centerGPS(){ if(state.pos) map.setView([state.pos.lat,state.pos.lng],16); }
+navigator.geolocation&&navigator.geolocation.watchPosition(pos=>{
+  const {latitude:lat,longitude:lng,accuracy}=pos.coords;
+  state.pos={lat,lng,accuracy};
+  const b=document.getElementById('gpsBadge');
+  b.textContent=`📍 ±${Math.round(accuracy)}m`; b.className='gps-badge ok';
+  if(!posMarker){posMarker=L.circleMarker([lat,lng],{radius:9,color:'#1565c0',fillColor:'#42a5f5',fillOpacity:.9,weight:2}).addTo(map);map.setView([lat,lng],14);}
+  else posMarker.setLatLng([lat,lng]);
+},()=>{document.getElementById('gpsBadge').textContent='📍 Sin señal';},{enableHighAccuracy:true,maximumAge:3000});
 
-function startGPS(){
-  if(!navigator.geolocation) return;
-  navigator.geolocation.watchPosition(pos=>{
-    const {latitude:lat,longitude:lng,accuracy} = pos.coords;
-    state.pos = {lat,lng,accuracy};
-    const badge = document.getElementById('gpsBadge');
-    badge.textContent = `📍 ±${Math.round(accuracy)}m`;
-    badge.className = 'gps-badge ok';
-    if(!posMarker){
-      posMarker = L.circleMarker([lat,lng],{radius:9,color:'#1565c0',fillColor:'#42a5f5',fillOpacity:.9,weight:2}).addTo(map);
-      map.setView([lat,lng],14);
-    } else posMarker.setLatLng([lat,lng]);
-  },()=>{
-    document.getElementById('gpsBadge').textContent='📍 Sin señal';
-  },{enableHighAccuracy:true,maximumAge:3000});
-}
-startGPS();
-
-// ─── LAYERS ──────────────────────────────────────────────────────────────────
-function openLayerTypeModal(){ openModal('modalLayerType'); }
+// ─── CAPAS ───────────────────────────────────────────────────────────────────
+const LAYER_COLORS={lotes:'#1565c0',ambientes:null,extra:'#e65100'};
+const LAYER_LABELS={lotes:'Lotes',ambientes:'Ambientes',extra:'Extra'};
 
 function triggerFileLoad(tipo){
-  state.pendingLayerType = tipo;
+  state.pendingLayerType=tipo;
   closeModal('modalLayerType');
   document.getElementById('fileInput').value='';
   document.getElementById('fileInput').click();
 }
 
 async function loadLayer(input){
-  const file = input.files[0]; if(!file) return;
-  const tipo = state.pendingLayerType;
-  const status = document.getElementById('layerStatus');
-  status.textContent='⏳ Cargando '+file.name+'...';
-  status.className='status-msg';
+  const file=input.files[0]; if(!file) return;
+  const tipo=state.pendingLayerType;
+  const status=document.getElementById('layerStatus');
+  status.textContent='⏳ Cargando '+file.name+'...'; status.className='status-msg';
   try{
-    const text = await file.text();
-    let geojson = JSON.parse(text);
+    const text=await file.text();
+    let geojson=JSON.parse(text);
     if(geojson.type==='Feature') geojson={type:'FeatureCollection',features:[geojson]};
-    if(!geojson.features||geojson.features.length===0) throw new Error('Sin features');
+    if(!geojson.features||!geojson.features.length) throw new Error('Sin features');
 
-    // Detectar campo nombre
-    const keys = Object.keys(geojson.features[0].properties||{});
-    let campoNombre = keys[0]||'id';
-    // Para lotes preferir 'Name','name','NOMBRE','lote','LOTE'
-    const prefLote = ['Name','name','NOMBRE','nombre','LOTE','lote'];
-    const prefAmb  = ['ambiente','AMBIENTE','Ambiente','tipo','TIPO','clase','CLASE','nombre','Name'];
-    if(tipo==='lotes'){
-      campoNombre = prefLote.find(k=>keys.includes(k)) || keys[0] || 'id';
-    } else if(tipo==='ambientes'){
-      campoNombre = prefAmb.find(k=>keys.includes(k)) || keys[0] || 'id';
+    // Detectar campo clave
+    const keys=Object.keys(geojson.features[0].properties||{});
+    const prefLote=['Name','name','NOMBRE','nombre','LOTE','lote','ID','id'];
+    const prefAmb=['ambiente','AMBIENTE','Ambiente','tipo','TIPO','clase','CLASE','DN','dn'];
+    let campoNombre=keys[0]||'id';
+    if(tipo==='lotes') campoNombre=prefLote.find(k=>keys.includes(k))||keys[0]||'id';
+    if(tipo==='ambientes') campoNombre=prefAmb.find(k=>keys.includes(k))||keys[0]||'id';
+
+    // Detectar si DN es numérico RGB o texto/número pequeño
+    let isDNcolor=false;
+    if(tipo==='ambientes'){
+      const sample=geojson.features[0].properties[campoNombre];
+      isDNcolor=(!isNaN(parseInt(sample)) && parseInt(sample)>65535);
     }
 
-    const color = LAYER_COLORS[tipo];
-    const fillOp = tipo==='extra' ? 0 : 0.12;
-    const weight = tipo==='extra' ? 2 : 2;
+    // Construir mapa de valores únicos → color
+    if(tipo==='ambientes'){
+      const uniqueVals=[...new Set(geojson.features.map(f=>String(f.properties[campoNombre]||'')))];
+      uniqueVals.forEach((val,idx)=>{
+        if(!state.ambienteMap[val]){
+          const hex=isDNcolor?dnToHex(val):null;
+          state.ambienteMap[val]={
+            color: hex||paletteColor(idx),
+            nombre:'',
+            isDNcolor
+          };
+        }
+      });
+      saveAmbMap();
+    }
 
-    const leafletLayer = L.geoJSON(geojson,{
-      style:()=>({color,weight,fillColor:color,fillOpacity:fillOp,dashArray:tipo==='extra'?'4 4':null}),
-      pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:6,color,fillColor:color,fillOpacity:.9,weight:2}),
+    // Crear capa Leaflet
+    const leafletLayer=L.geoJSON(geojson,{
+      style:f=>{
+        if(tipo==='ambientes'){
+          const val=String(f.properties[campoNombre]||'');
+          const entry=state.ambienteMap[val];
+          const color=entry?entry.color:'#888';
+          return {color:'#333',weight:1,fillColor:color,fillOpacity:0.55};
+        }
+        if(tipo==='lotes') return {color:'#1565c0',weight:2.5,fillOpacity:0,dashArray:'6 3'};
+        return {color:'#e65100',weight:2,fillOpacity:0};
+      },
+      pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:6,color:'#e65100',fillColor:'#e65100',fillOpacity:.9,weight:2}),
       onEachFeature:(f,l)=>{
-        const val = f.properties?.[campoNombre]||'';
-        if(val) l.bindTooltip(String(val),{permanent:false,sticky:true});
+        const val=String(f.properties[campoNombre]||'');
+        let label=val;
+        if(tipo==='ambientes'&&state.ambienteMap[val]?.nombre) label=state.ambienteMap[val].nombre;
+        if(label) l.bindTooltip(label,{permanent:false,sticky:true});
       }
     }).addTo(map);
 
-    const bounds = leafletLayer.getBounds();
+    const bounds=leafletLayer.getBounds();
     if(bounds.isValid()) map.fitBounds(bounds,{padding:[20,20]});
 
-    const layerObj = {
-      id: Date.now(),
-      tipo, name: file.name,
-      geojson, leafletLayer, campoNombre,
-      featureCount: geojson.features.length
-    };
-    state.layers.push(layerObj);
+    state.layers.push({id:Date.now(),tipo,name:file.name,geojson,leafletLayer,campoNombre,isDNcolor,featureCount:geojson.features.length});
     renderLayerList();
-    status.textContent = `✅ ${LAYER_LABELS[tipo]}: ${file.name} (${geojson.features.length} polígonos, campo: "${campoNombre}")`;
+
+    if(tipo==='ambientes'){
+      renderAmbEditor();
+      document.getElementById('ambEditorSection').style.display='block';
+    }
+
+    status.textContent=`✅ ${LAYER_LABELS[tipo]}: ${file.name} (${geojson.features.length} polígonos)`;
     status.className='status-msg ok';
   }catch(e){
-    status.textContent='❌ Error: '+e.message;
-    status.className='status-msg err';
+    status.textContent='❌ Error: '+e.message; status.className='status-msg err';
   }
 }
 
 function removeLayer(id){
-  const idx = state.layers.findIndex(l=>l.id===id);
-  if(idx===-1) return;
-  map.removeLayer(state.layers[idx].leafletLayer);
+  const idx=state.layers.findIndex(l=>l.id===id); if(idx===-1) return;
+  const layer=state.layers[idx];
+  map.removeLayer(layer.leafletLayer);
   state.layers.splice(idx,1);
   renderLayerList();
-  const status = document.getElementById('layerStatus');
-  status.textContent = state.layers.length===0?'Sin capas cargadas':`${state.layers.length} capa(s) activa(s)`;
-  status.className='status-msg';
+  const hasAmb=state.layers.some(l=>l.tipo==='ambientes');
+  if(!hasAmb) document.getElementById('ambEditorSection').style.display='none';
+  document.getElementById('layerStatus').textContent=state.layers.length?`${state.layers.length} capa(s) activa(s)`:'Sin capas cargadas';
+  document.getElementById('layerStatus').className='status-msg';
 }
 
 function renderLayerList(){
-  const el = document.getElementById('layerList');
-  if(state.layers.length===0){el.innerHTML='';return;}
-  el.innerHTML = state.layers.map(l=>`
+  const el=document.getElementById('layerList');
+  if(!state.layers.length){el.innerHTML='';return;}
+  el.innerHTML=state.layers.map(l=>`
     <div class="layer-item">
-      <div class="layer-dot" style="background:${LAYER_COLORS[l.tipo]}"></div>
+      <div class="layer-dot" style="background:${LAYER_COLORS[l.tipo]||'#2e7d32'}"></div>
       <div class="layer-info">
         <div class="layer-name">${LAYER_LABELS[l.tipo]}: ${l.name}</div>
         <div class="layer-meta">${l.featureCount} polígonos · campo: "${l.campoNombre}"</div>
@@ -403,16 +438,75 @@ function renderLayerList(){
     </div>`).join('');
 }
 
-// ─── PUNTO EN POLÍGONO ────────────────────────────────────────────────────────
+// ─── EDITOR DE AMBIENTES ──────────────────────────────────────────────────────
+function renderAmbEditor(){
+  const el=document.getElementById('ambEditor');
+  const entries=Object.entries(state.ambienteMap);
+  if(!entries.length){el.innerHTML='<p style="font-size:.8rem;color:#90a4ae">Sin valores detectados</p>';return;}
+  el.innerHTML=entries.map(([val,info])=>`
+    <div class="amb-row">
+      <div class="amb-swatch" style="background:${info.color}" title="${val}"></div>
+      <span class="amb-code" title="${val}">${val}</span>
+      <input class="amb-input" type="text" placeholder="Nombre (opcional)" value="${info.nombre||''}"
+        data-val="${val.replace(/"/g,'&quot;')}" onchange="updateAmbNombre(this)"/>
+      <input type="color" value="${info.color}" title="Cambiar color"
+        style="width:28px;height:28px;border:none;padding:0;cursor:pointer;border-radius:4px;flex-shrink:0"
+        data-val="${val.replace(/"/g,'&quot;')}" onchange="updateAmbColor(this)"/>
+    </div>`).join('');
+}
+
+function updateAmbNombre(input){
+  const val=input.dataset.val;
+  if(state.ambienteMap[val]) state.ambienteMap[val].nombre=input.value.trim();
+  saveAmbMap();
+}
+
+function updateAmbColor(input){
+  const val=input.dataset.val;
+  if(state.ambienteMap[val]){
+    state.ambienteMap[val].color=input.value;
+    // actualizar swatch hermano
+    input.parentElement.querySelector('.amb-swatch').style.background=input.value;
+    saveAmbMap();
+  }
+}
+
+function applyAmbienteNames(){
+  // Redibujar capas de ambientes con nuevos colores y nombres
+  state.layers.filter(l=>l.tipo==='ambientes').forEach(layer=>{
+    map.removeLayer(layer.leafletLayer);
+    layer.leafletLayer=L.geoJSON(layer.geojson,{
+      style:f=>{
+        const val=String(f.properties[layer.campoNombre]||'');
+        const entry=state.ambienteMap[val];
+        return {color:'#333',weight:1,fillColor:entry?entry.color:'#888',fillOpacity:0.55};
+      },
+      onEachFeature:(f,l)=>{
+        const val=String(f.properties[layer.campoNombre]||'');
+        const entry=state.ambienteMap[val];
+        const label=(entry?.nombre)||val;
+        if(label) l.bindTooltip(label,{permanent:false,sticky:true});
+      }
+    }).addTo(map);
+  });
+  alert('✅ Nombres y colores aplicados al mapa');
+}
+
+// ─── DETECCIÓN GPS ────────────────────────────────────────────────────────────
 function detectInLayers(lat,lng){
-  const result = {lote:'Sin lote', ambiente:'Sin ambiente'};
+  const result={lote:'Sin lote',ambiente:'Sin ambiente',ambColor:null,ambValor:null};
   for(const layer of state.layers){
-    if(layer.tipo!=='lotes' && layer.tipo!=='ambientes') continue;
+    if(layer.tipo!=='lotes'&&layer.tipo!=='ambientes') continue;
     for(const feat of layer.geojson.features){
       if(pointInFeature(lng,lat,feat)){
-        const val = feat.properties?.[layer.campoNombre]||'';
-        if(layer.tipo==='lotes') result.lote = String(val);
-        if(layer.tipo==='ambientes') result.ambiente = String(val);
+        const raw=String(feat.properties?.[layer.campoNombre]||'');
+        if(layer.tipo==='lotes') result.lote=raw;
+        if(layer.tipo==='ambientes'){
+          const entry=state.ambienteMap[raw];
+          result.ambValor=raw;
+          result.ambColor=entry?.color||'#888';
+          result.ambiente=(entry?.nombre&&entry.nombre!=='')?entry.nombre:raw;
+        }
       }
     }
   }
@@ -420,10 +514,9 @@ function detectInLayers(lat,lng){
 }
 
 function pointInFeature(x,y,feature){
-  const geom = feature.geometry;
-  if(!geom) return false;
-  const polys = geom.type==='Polygon'?[geom.coordinates]:geom.type==='MultiPolygon'?geom.coordinates:[];
-  for(const poly of polys){ if(pip(x,y,poly[0])) return true; }
+  const geom=feature.geometry; if(!geom) return false;
+  const polys=geom.type==='Polygon'?[geom.coordinates]:geom.type==='MultiPolygon'?geom.coordinates:[];
+  for(const poly of polys){if(pip(x,y,poly[0])) return true;}
   return false;
 }
 function pip(x,y,vs){
@@ -435,28 +528,26 @@ function pip(x,y,vs){
   return inside;
 }
 
-// Área aproximada de polígono en WGS84 (m²) usando shoelace
 function polyAreaHa(coords){
-  const R=6371000;
-  let area=0;
+  const R=6371000; let area=0;
   for(let i=0,j=coords.length-1;i<coords.length;j=i++){
     const [x1,y1]=coords[j].map(v=>v*Math.PI/180);
     const [x2,y2]=coords[i].map(v=>v*Math.PI/180);
-    area += (x2-x1)*(2+Math.sin(y1)+Math.sin(y2));
+    area+=(x2-x1)*(2+Math.sin(y1)+Math.sin(y2));
   }
   return Math.abs(area*R*R/2)/10000;
 }
 
-function getAmbienteArea(lote, ambiente){
-  const ambLayer = state.layers.find(l=>l.tipo==='ambientes');
-  const loteLayer = state.layers.find(l=>l.tipo==='lotes');
+function getAmbienteArea(ambiente){
+  const ambLayer=state.layers.find(l=>l.tipo==='ambientes');
   if(!ambLayer) return 1;
-  // Buscar feature que coincida con el ambiente (y opcionalmente el lote)
   for(const feat of ambLayer.geojson.features){
-    const val = String(feat.properties?.[ambLayer.campoNombre]||'');
-    if(val===ambiente){
-      const geom = feat.geometry;
-      const coords = geom.type==='Polygon'?geom.coordinates[0]:geom.type==='MultiPolygon'?geom.coordinates[0][0]:null;
+    const raw=String(feat.properties?.[ambLayer.campoNombre]||'');
+    const entry=state.ambienteMap[raw];
+    const nombre=(entry?.nombre&&entry.nombre!=='')?entry.nombre:raw;
+    if(nombre===ambiente){
+      const geom=feat.geometry;
+      const coords=geom.type==='Polygon'?geom.coordinates[0]:geom.type==='MultiPolygon'?geom.coordinates[0][0]:null;
       if(coords) return polyAreaHa(coords);
     }
   }
@@ -467,43 +558,33 @@ function getAmbienteArea(lote, ambiente){
 function openWaypointModal(){
   if(!state.pos){alert('Esperando señal GPS...');return;}
   document.getElementById('wpCoords').value=`${state.pos.lat.toFixed(6)}, ${state.pos.lng.toFixed(6)}`;
-
-  const detected = detectInLayers(state.pos.lat, state.pos.lng);
-  document.getElementById('wpLoteTxt').textContent = detected.lote;
-  document.getElementById('wpAmbTxt').textContent = detected.ambiente;
-
-  const selR = document.getElementById('wpRecurso');
-  selR.innerHTML = state.recursos.map(r=>`<option>${r}</option>`).join('');
-
-  document.getElementById('camposExtra').innerHTML = state.campos.map(c=>`
-    <div class="field-group">
-      <label>${c}</label>
-      <input type="number" class="campo-extra" data-campo="${c}" placeholder="0" step="any"/>
-    </div>`).join('');
-
-  document.getElementById('wpKgMS').value='';
-  document.getElementById('wpCalidad').value='';
-  document.getElementById('wpNotas').value='';
-  document.getElementById('wpTranscripcion').value='';
+  const det=detectInLayers(state.pos.lat,state.pos.lng);
+  document.getElementById('wpLoteTxt').textContent=det.lote;
+  document.getElementById('wpAmbTxt').textContent=det.ambiente;
+  const swatch=document.getElementById('wpAmbSwatch');
+  if(det.ambColor){swatch.style.background=det.ambColor;swatch.style.display='inline-block';}
+  else swatch.style.display='none';
+  document.getElementById('wpRecurso').innerHTML=state.recursos.map(r=>`<option>${r}</option>`).join('');
+  document.getElementById('camposExtra').innerHTML=state.campos.map(c=>`
+    <div class="field-group"><label>${c}</label>
+    <input type="number" class="campo-extra" data-campo="${c}" placeholder="0" step="any"/></div>`).join('');
+  ['wpKgMS','wpCalidad','wpNotas','wpTranscripcion'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('transcripcionBox').style.display='none';
   openModal('modalWP');
 }
 
 function saveWaypoint(){
-  const coords = document.getElementById('wpCoords').value.split(',').map(Number);
-  const kgMS = parseFloat(document.getElementById('wpKgMS').value)||0;
-  const calidad = parseFloat(document.getElementById('wpCalidad').value)||0;
-  const lote = document.getElementById('wpLoteTxt').textContent;
-  const ambiente = document.getElementById('wpAmbTxt').textContent;
-  const extras = {};
-  document.querySelectorAll('.campo-extra').forEach(el=>{
-    extras[el.dataset.campo]=parseFloat(el.value)||0;
-  });
-  const wp = {
-    id:Date.now(), lat:coords[0], lng:coords[1],
-    lote, ambiente,
+  const coords=document.getElementById('wpCoords').value.split(',').map(Number);
+  const extras={};
+  document.querySelectorAll('.campo-extra').forEach(el=>{extras[el.dataset.campo]=parseFloat(el.value)||0;});
+  const wp={
+    id:Date.now(),lat:coords[0],lng:coords[1],
+    lote:document.getElementById('wpLoteTxt').textContent,
+    ambiente:document.getElementById('wpAmbTxt').textContent,
     recurso:document.getElementById('wpRecurso').value,
-    kgMS, calidad, extras,
+    kgMS:parseFloat(document.getElementById('wpKgMS').value)||0,
+    calidad:parseFloat(document.getElementById('wpCalidad').value)||0,
+    extras,
     notas:document.getElementById('wpNotas').value,
     transcripcion:document.getElementById('wpTranscripcion').value,
     ts:new Date().toISOString()
@@ -517,7 +598,7 @@ function saveWaypoint(){
 }
 
 function addWPMarker(wp){
-  const m = L.circleMarker([wp.lat,wp.lng],{radius:7,color:'#e65100',fillColor:'#ff7043',fillOpacity:.9,weight:2})
+  const m=L.circleMarker([wp.lat,wp.lng],{radius:7,color:'#e65100',fillColor:'#ff7043',fillOpacity:.9,weight:2})
     .bindPopup(`<b>${wp.ambiente}</b><br>Lote: ${wp.lote}<br>${wp.recurso}<br>kgMS/ha: ${wp.kgMS}<br>Calidad: ${wp.calidad}`)
     .addTo(map);
   wpMarkers.push(m);
@@ -525,10 +606,10 @@ function addWPMarker(wp){
 state.waypoints.forEach(addWPMarker);
 
 // ─── VOZ ──────────────────────────────────────────────────────────────────────
-function toggleRecord(){ if(!state.recording) startRecord(); else stopRecord(); }
+function toggleRecord(){if(!state.recording)startRecord();else stopRecord();}
 function startRecord(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert('Reconocimiento de voz no disponible. Usá texto.');return;}
+  if(!SR){alert('Reconocimiento de voz no disponible.');return;}
   state.recognition=new SR();
   state.recognition.lang='es-AR';
   state.recognition.continuous=true;
@@ -542,8 +623,7 @@ function startRecord(){
   state.recognition.start();
   state.recording=true;
   const btn=document.getElementById('btnRecord');
-  btn.className='btn-audio recording';
-  btn.textContent='⏹ Detener grabación';
+  btn.className='btn-audio recording'; btn.textContent='⏹ Detener grabación';
 }
 function stopRecord(){
   if(state.recognition){state.recognition.stop();state.recognition=null;}
@@ -555,16 +635,16 @@ function stopRecord(){
 // ─── WP LIST ─────────────────────────────────────────────────────────────────
 function renderWPList(){
   const el=document.getElementById('wpList');
-  if(state.waypoints.length===0){
-    el.innerHTML='<div class="empty-state">🌾 Sin waypoints aún.<br>Presioná ＋ en el mapa.</div>';
-    return;
-  }
+  if(!state.waypoints.length){el.innerHTML='<div class="empty-state">🌾 Sin waypoints aún.<br>Presioná ＋ en el mapa.</div>';return;}
   el.innerHTML=state.waypoints.slice().reverse().map((wp,i)=>{
     const idx=state.waypoints.length-1-i;
     const date=new Date(wp.ts).toLocaleString('es-AR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
     const extStr=Object.entries(wp.extras||{}).map(([k,v])=>`${k}: ${v}`).join(' · ');
+    // color del ambiente
+    const ambEntry=Object.entries(state.ambienteMap).find(([_,e])=>(e.nombre||_)===wp.ambiente);
+    const ambColor=ambEntry?ambEntry[1].color:'#888';
     return `<div class="wp-card">
-      <div class="wp-icon">📍</div>
+      <div class="wp-icon" style="background:${ambColor}">📍</div>
       <div class="wp-info">
         <div class="wp-title">${wp.ambiente} — ${wp.recurso}</div>
         <div class="wp-meta">${date} · <span class="badge badge-lote">${wp.lote}</span></div>
@@ -579,7 +659,7 @@ function renderWPList(){
 renderWPList();
 
 function deleteWP(idx){
-  if(!confirm('¿Eliminar este waypoint?')) return;
+  if(!confirm('¿Eliminar este waypoint?'))return;
   state.waypoints.splice(idx,1);
   saveWPs();
   wpMarkers.forEach(m=>map.removeLayer(m));
@@ -592,59 +672,48 @@ function deleteWP(idx){
 // ─── RESUMEN ─────────────────────────────────────────────────────────────────
 function renderResumen(){
   const el=document.getElementById('resumenArea');
-  if(state.waypoints.length===0){
-    el.innerHTML='<div class="empty-state">📊 Registrá waypoints para ver el resumen.</div>';
-    return;
-  }
+  if(!state.waypoints.length){el.innerHTML='<div class="empty-state">📊 Registrá waypoints para ver el resumen.</div>';return;}
   const numCampos=['kgMS','calidad',...state.campos];
+  function getVal(wp,c){return c==='kgMS'?wp.kgMS:c==='calidad'?wp.calidad:(wp.extras?.[c]||0);}
+  function avgPond(wps,campo){
+    const vals=wps.map(wp=>({v:getVal(wp,campo),area:getAmbienteArea(wp.ambiente)})).filter(x=>x.v>0);
+    if(!vals.length) return '-';
+    const tot=vals.reduce((a,x)=>a+x.area,0);
+    if(!tot) return (vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
+    return (vals.reduce((a,x)=>a+x.v*x.area,0)/tot).toFixed(1);
+  }
 
-  function getVal(wp,c){ return c==='kgMS'?wp.kgMS:c==='calidad'?wp.calidad:(wp.extras?.[c]||0); }
-
-  // Agrupar por lote > ambiente > recurso
   const groups={};
   state.waypoints.forEach(wp=>{
-    const key=`${wp.lote}|||${wp.ambiente}|||${wp.recurso}`;
-    if(!groups[key]) groups[key]={lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,wps:[]};
-    groups[key].wps.push(wp);
+    const k=`${wp.lote}|||${wp.ambiente}|||${wp.recurso}`;
+    if(!groups[k]) groups[k]={lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,wps:[]};
+    groups[k].wps.push(wp);
   });
 
-  // Promedio ponderado por área de ambiente
-  function avgPonderado(wps, campo){
-    // Si hay capa de ambientes con área, usamos área como peso
-    const vals = wps.map(wp=>({v:getVal(wp,campo), area:getAmbienteArea(wp.lote,wp.ambiente)})).filter(x=>x.v>0);
-    if(vals.length===0) return '-';
-    const totalArea = vals.reduce((a,x)=>a+x.area,0);
-    if(totalArea===0) return (vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
-    return (vals.reduce((a,x)=>a+x.v*x.area,0)/totalArea).toFixed(1);
-  }
-
-  const rows=Object.values(groups).sort((a,b)=>{
-    if(a.lote!==b.lote) return a.lote.localeCompare(b.lote);
-    if(a.ambiente!==b.ambiente) return a.ambiente.localeCompare(b.ambiente);
-    return a.recurso.localeCompare(b.recurso);
-  });
-
+  const rows=Object.values(groups).sort((a,b)=>a.lote.localeCompare(b.lote)||a.ambiente.localeCompare(b.ambiente)||a.recurso.localeCompare(b.recurso));
   const cols=numCampos;
-  const thead=`<tr><th>Lote</th><th>Ambiente</th><th>Recurso</th><th>n</th>${cols.map(c=>`<th>${c==='kgMS'?'kgMS/ha':c==='calidad'?'Calidad':c}</th>`).join('')}</tr>`;
-  const tbody=rows.map(g=>`<tr>
-    <td><span class="badge badge-lote">${g.lote}</span></td>
-    <td><span class="badge badge-amb">${g.ambiente}</span></td>
-    <td>${g.recurso}</td>
-    <td>${g.wps.length}</td>
-    ${cols.map(c=>`<td><b>${avgPonderado(g.wps,c)}</b></td>`).join('')}
-  </tr>`).join('');
+  const colHeaders=cols.map(c=>c==='kgMS'?'kgMS/ha':c==='calidad'?'Calidad':c);
 
-  // También resumen por lote (colapsando ambientes)
+  const thead=`<tr><th>Lote</th><th>Ambiente</th><th>Recurso</th><th>n</th>${colHeaders.map(h=>`<th>${h}</th>`).join('')}</tr>`;
+  const tbody=rows.map(g=>{
+    const ambEntry=Object.entries(state.ambienteMap).find(([_,e])=>(e.nombre||_)===g.ambiente);
+    const ambColor=ambEntry?ambEntry[1].color:'#ccc';
+    return `<tr>
+      <td><span class="badge badge-lote">${g.lote}</span></td>
+      <td><span class="badge" style="background:${ambColor}20;color:${ambColor};border:1px solid ${ambColor}40">${g.ambiente}</span></td>
+      <td>${g.recurso}</td><td>${g.wps.length}</td>
+      ${cols.map(c=>`<td><b>${avgPond(g.wps,c)}</b></td>`).join('')}
+    </tr>`;
+  }).join('');
+
   const byLote={};
   Object.values(groups).forEach(g=>{
     if(!byLote[g.lote]) byLote[g.lote]={lote:g.lote,wps:[]};
     byLote[g.lote].wps.push(...g.wps);
   });
-  const loteRows=Object.values(byLote).sort((a,b)=>a.lote.localeCompare(b.lote));
-  const loteBody=loteRows.map(g=>`<tr>
-    <td><span class="badge badge-lote">${g.lote}</span></td>
-    <td>${g.wps.length}</td>
-    ${cols.map(c=>`<td><b>${avgPonderado(g.wps,c)}</b></td>`).join('')}
+  const loteBody=Object.values(byLote).sort((a,b)=>a.lote.localeCompare(b.lote)).map(g=>`<tr>
+    <td><span class="badge badge-lote">${g.lote}</span></td><td>${g.wps.length}</td>
+    ${cols.map(c=>`<td><b>${avgPond(g.wps,c)}</b></td>`).join('')}
   </tr>`).join('');
 
   el.innerHTML=`
@@ -655,7 +724,7 @@ function renderResumen(){
     <div class="resumen-card">
       <h3>📊 Por Lote (promedio ponderado)</h3>
       <div style="overflow-x:auto"><table>
-        <thead><tr><th>Lote</th><th>n</th>${cols.map(c=>`<th>${c==='kgMS'?'kgMS/ha':c==='calidad'?'Calidad':c}</th>`).join('')}</tr></thead>
+        <thead><tr><th>Lote</th><th>n</th>${colHeaders.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
         <tbody>${loteBody}</tbody>
       </table></div>
     </div>`;
@@ -667,33 +736,29 @@ function exportCSV(){
   if(!state.waypoints.length){alert('Sin datos.');return;}
   const cols=['id','ts','lote','ambiente','recurso','kgMS','calidad','lat','lng','notas','transcripcion',...state.campos];
   const rows=state.waypoints.map(wp=>[
-    wp.id,wp.ts,wp.lote,wp.ambiente,wp.recurso,wp.kgMS,wp.calidad,
-    wp.lat,wp.lng,
+    wp.id,wp.ts,wp.lote,wp.ambiente,wp.recurso,wp.kgMS,wp.calidad,wp.lat,wp.lng,
     `"${(wp.notas||'').replace(/"/g,'""')}"`,
     `"${(wp.transcripcion||'').replace(/"/g,'""')}"`,
     ...state.campos.map(c=>wp.extras?.[c]||0)
   ]);
-  const csv=[cols.join(','),...rows.map(r=>r.join(','))].join('\n');
-  dlFile('relevamiento.csv','data:text/csv;charset=utf-8,'+encodeURIComponent(csv));
+  dlFile('relevamiento.csv','data:text/csv;charset=utf-8,'+encodeURIComponent([cols.join(','),...rows.map(r=>r.join(','))].join('\n')));
 }
-
 function exportGeoJSON(){
   if(!state.waypoints.length){alert('Sin datos.');return;}
-  const gj={type:'FeatureCollection',features:state.waypoints.map(wp=>({
-    type:'Feature',
-    geometry:{type:'Point',coordinates:[wp.lng,wp.lat]},
-    properties:{lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,kgMS:wp.kgMS,calidad:wp.calidad,notas:wp.notas,ts:wp.ts,...wp.extras}
-  }))};
-  dlFile('relevamiento.geojson','data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(gj,null,2)));
+  dlFile('relevamiento.geojson','data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify({
+    type:'FeatureCollection',
+    features:state.waypoints.map(wp=>({
+      type:'Feature',
+      geometry:{type:'Point',coordinates:[wp.lng,wp.lat]},
+      properties:{lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,kgMS:wp.kgMS,calidad:wp.calidad,notas:wp.notas,ts:wp.ts,...wp.extras}
+    }))
+  },null,2)));
 }
+function dlFile(name,uri){const a=document.createElement('a');a.href=uri;a.download=name;a.click();}
 
-function dlFile(name,uri){ const a=document.createElement('a');a.href=uri;a.download=name;a.click(); }
-
-// ─── CONFIG LISTS ─────────────────────────────────────────────────────────────
-function renderTags(listId,arr,removeFn){
-  document.getElementById(listId).innerHTML=arr.map((v,i)=>
-    `<span class="tag">${v}<button onclick="${removeFn}(${i})">✕</button></span>`
-  ).join('');
+// ─── CONFIG LISTAS ────────────────────────────────────────────────────────────
+function renderTags(id,arr,fn){
+  document.getElementById(id).innerHTML=arr.map((v,i)=>`<span class="tag">${v}<button onclick="${fn}(${i})">✕</button></span>`).join('');
 }
 function addRecurso(){const v=document.getElementById('newRecurso').value.trim();if(!v)return;state.recursos.push(v);document.getElementById('newRecurso').value='';saveCfg();renderTags('recursoList',state.recursos,'removeRecurso');}
 function removeRecurso(i){state.recursos.splice(i,1);saveCfg();renderTags('recursoList',state.recursos,'removeRecurso');}
@@ -702,10 +767,10 @@ function removeCampo(i){state.campos.splice(i,1);saveCfg();renderTags('camposLis
 renderTags('recursoList',state.recursos,'removeRecurso');
 renderTags('camposList',state.campos,'removeCampo');
 
-// ─── MODAL HELPERS ────────────────────────────────────────────────────────────
-function openModal(id){ document.getElementById(id).classList.add('open'); }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); if(id==='modalWP') stopRecord(); }
-function closeModalOutside(e,id){ if(e.target===document.getElementById(id)) closeModal(id); }
+// ─── MODALES ──────────────────────────────────────────────────────────────────
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');if(id==='modalWP')stopRecord();}
+function closeModalOutside(e,id){if(e.target===document.getElementById(id))closeModal(id);}
 
 // ─── TABS ─────────────────────────────────────────────────────────────────────
 function showTab(id,btn){
@@ -713,9 +778,9 @@ function showTab(id,btn){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('screen-'+id).classList.add('active');
   btn.classList.add('active');
-  if(id==='mapa') setTimeout(()=>map.invalidateSize(),50);
-  if(id==='resumen') renderResumen();
-  if(id==='waypoints') renderWPList();
+  if(id==='mapa')setTimeout(()=>map.invalidateSize(),50);
+  if(id==='resumen')renderResumen();
+  if(id==='waypoints')renderWPList();
 }
 </script>
 </body>
