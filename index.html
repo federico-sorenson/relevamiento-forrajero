@@ -478,17 +478,19 @@ async function loadLayer(input){
           // Etiqueta permanente centrada en el polígono
           l.bindTooltip(lbl,{permanent:true,direction:'center',className:'lote-label'});
         } else if(tipo==='ambientes'){
-          // Tooltip al hover
-          l.on('mouseover mousemove',e=>{
+          l.on('mouseover mousemove click',e=>{
+            const val=String(f.properties[campo]||'');
+            const entry=state.ambienteMap[val];
+            const nombre=(entry?.nombre&&entry.nombre!=='')?entry.nombre:val;
             const tip=document.getElementById('ambHoverTip');
-            tip.textContent='🌿 '+lbl; tip.style.display='block';
+            tip.textContent='🌿 '+nombre; tip.style.display='block';
+            clearTimeout(tip._t);
+            tip._t=setTimeout(()=>tip.style.display='none',3000);
           });
-          l.on('mouseout',()=>{document.getElementById('ambHoverTip').style.display='none';});
-          // También para touch
-          l.on('click',()=>{
+          l.on('mouseout',()=>{
             const tip=document.getElementById('ambHoverTip');
-            tip.textContent='🌿 '+lbl; tip.style.display='block';
-            setTimeout(()=>tip.style.display='none',2500);
+            clearTimeout(tip._t);
+            tip._t=setTimeout(()=>tip.style.display='none',400);
           });
         } else {
           if(lbl) l.bindTooltip(lbl,{permanent:false,sticky:true});
@@ -558,9 +560,20 @@ function applyAmbienteNames(){
         const val=String(f.properties[layer.campoNombre]||'');
         const e=state.ambienteMap[val];
         const lbl=(e?.nombre)||val;
-        l.on('mouseover mousemove',()=>{const t=document.getElementById('ambHoverTip');t.textContent='🌿 '+lbl;t.style.display='block';});
-        l.on('mouseout',()=>{document.getElementById('ambHoverTip').style.display='none';});
-        l.on('click',()=>{const t=document.getElementById('ambHoverTip');t.textContent='🌿 '+lbl;t.style.display='block';setTimeout(()=>t.style.display='none',2500);});
+        l.on('mouseover mousemove click',e=>{
+          const val=String(f.properties[layer.campoNombre]||'');
+          const entry=state.ambienteMap[val];
+          const nombre=(entry?.nombre&&entry.nombre!=='')?entry.nombre:val;
+          const t=document.getElementById('ambHoverTip');
+          t.textContent='🌿 '+nombre; t.style.display='block';
+          clearTimeout(t._t);
+          t._t=setTimeout(()=>t.style.display='none',3000);
+        });
+        l.on('mouseout',()=>{
+          const t=document.getElementById('ambHoverTip');
+          clearTimeout(t._t);
+          t._t=setTimeout(()=>t.style.display='none',400);
+        });
       }
     }).addTo(map);
   });
