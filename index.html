@@ -146,11 +146,10 @@
 <div class="screen" id="screen-config">
   <div class="config-section">
     <h3><span>🗂️</span> Mapa de ambientes</h3>
-    <label class="file-btn" for="fileShp">📂 Cargar Shapefile (.zip con .shp/.dbf/.prj)</label>
-    <input type="file" id="fileShp" accept=".zip,.geojson,.json" style="display:none" onchange="loadShapefile(this)"/>
-    <label class="file-btn" for="fileGeoPDF">📂 Cargar GeoPDF (referencia visual)</label>
-    <input type="file" id="fileGeoPDF" accept=".pdf" style="display:none" onchange="loadGeoPDF(this)"/>
+    <label class="file-btn" for="fileShp">📂 Cargar GeoJSON / ZIP con Shapefile</label>
+    <input type="file" id="fileShp" accept=".zip,.geojson,.json,application/json,application/geo+json" style="display:none" onchange="loadShapefile(this)"/>
     <div class="loaded-file" id="loadedFile">Ningún archivo cargado</div>
+    <button class="btn-secondary" style="margin-top:8px;width:100%" onclick="clearMap()">🗑 Limpiar mapa cargado</button>
   </div>
 
   <div class="config-section">
@@ -337,9 +336,11 @@ function loadScript(src){
   });
 }
 
-function loadGeoPDF(input){
-  const file = input.files[0]; if(!file) return;
-  document.getElementById('loadedFile').textContent = '📄 GeoPDF: '+file.name+' (referencia cargada — usar como guía visual)';
+function clearMap(){
+  if(ambLayer){ map.removeLayer(ambLayer); ambLayer=null; }
+  state.ambientes=[];
+  document.getElementById('loadedFile').textContent='Ningún archivo cargado';
+  document.getElementById('fileShp').value='';
 }
 
 // ─── AUTO DETECT AMBIENTE ────────────────────────────────────────────────────
