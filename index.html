@@ -134,6 +134,8 @@ tr:last-child td{border:none}
 <div class="screen active" id="screen-mapa">
   <div class="map-wrap">
     <div id="map"></div>
+    <div class="amb-hover-tip" id="ambHoverTip"></div>
+    <div class="map-legend" id="mapLegend"><h4>🌿 Ambientes</h4><div id="legendItems"></div></div>
     <div class="map-controls">
       <button class="btn-loc" onclick="centerGPS()">🎯</button>
       <button class="btn-wp" onclick="openWaypointModal()">＋</button>
@@ -472,7 +474,25 @@ async function loadLayer(input){
       onEachFeature:(f,l)=>{
         const val=String(f.properties[campo]||'');
         const lbl=tipo==='ambientes'&&state.ambienteMap[val]?.nombre?state.ambienteMap[val].nombre:val;
-        if(lbl) l.bindTooltip(lbl,{permanent:false,sticky:true});
+        if(tipo==='lotes'){
+          // Etiqueta permanente centrada en el polígono
+          l.bindTooltip(lbl,{permanent:true,direction:'center',className:'lote-label'});
+        } else if(tipo==='ambientes'){
+          // Tooltip al hover
+          l.on('mouseover mousemove',e=>{
+            const tip=document.getElementById('ambHoverTip');
+            tip.textContent='🌿 '+lbl; tip.style.display='block';
+          });
+          l.on('mouseout',()=>{document.getElementById('ambHoverTip').style.display='none';});
+          // También para touch
+          l.on('click',()=>{
+            const tip=document.getElementById('ambHoverTip');
+            tip.textContent='🌿 '+lbl; tip.style.display='block';
+            setTimeout(()=>tip.style.display='none',2500);
+          });
+        } else {
+          if(lbl) l.bindTooltip(lbl,{permanent:false,sticky:true});
+        }
       }
     }).addTo(map);
 
@@ -480,7 +500,7 @@ async function loadLayer(input){
     if(b.isValid()) map.fitBounds(b,{padding:[20,20]});
     state.layers.push({id:Date.now(),tipo,name:file.name,geojson:gj,leafletLayer:lLayer,campoNombre:campo,featureCount:gj.features.length});
     renderLayerList();
-    if(tipo==='ambientes'){renderAmbEditor();document.getElementById('ambEditorSection').style.display='block';}
+    if(tipo==='ambientes'){renderAmbEditor();document.getElementById('ambEditorSection').style.display='block';renderLegend();}
     status.textContent=`✅ ${tipo}: ${file.name} (${gj.features.length} polígonos)`; status.className='status-msg ok';
   }catch(e){status.textContent='❌ '+e.message;status.className='status-msg err';}
 }
@@ -534,10 +554,30 @@ function applyAmbienteNames(){
     map.removeLayer(layer.leafletLayer);
     layer.leafletLayer=L.geoJSON(layer.geojson,{
       style:f=>{const val=String(f.properties[layer.campoNombre]||'');const e=state.ambienteMap[val];return{color:'#333',weight:1,fillColor:e?e.color:'#888',fillOpacity:0.55};},
-      onEachFeature:(f,l)=>{const val=String(f.properties[layer.campoNombre]||'');const e=state.ambienteMap[val];const lbl=(e?.nombre)||val;if(lbl)l.bindTooltip(lbl,{permanent:false,sticky:true});}
+      onEachFeature:(f,l)=>{
+        const val=String(f.properties[layer.campoNombre]||'');
+        const e=state.ambienteMap[val];
+        const lbl=(e?.nombre)||val;
+        l.on('mouseover mousemove',()=>{const t=document.getElementById('ambHoverTip');t.textContent='🌿 '+lbl;t.style.display='block';});
+        l.on('mouseout',()=>{document.getElementById('ambHoverTip').style.display='none';});
+        l.on('click',()=>{const t=document.getElementById('ambHoverTip');t.textContent='🌿 '+lbl;t.style.display='block';setTimeout(()=>t.style.display='none',2500);});
+      }
     }).addTo(map);
   });
+  renderLegend();
   alert('✅ Nombres y colores aplicados');
+}
+
+function renderLegend(){
+  const entries=Object.entries(state.ambienteMap);
+  const legend=document.getElementById('mapLegend');
+  const items=document.getElementById('legendItems');
+  if(!entries.length){legend.style.display='none';return;}
+  items.innerHTML=entries.map(([val,info])=>{
+    const lbl=info.nombre&&info.nombre!==''?info.nombre:val;
+    return `<div class="legend-item"><div class="legend-swatch" style="background:${info.color}"></div><span class="legend-label" title="${lbl}">${lbl}</span></div>`;
+  }).join('');
+  legend.style.display='block';
 }
 
 // ─── DETECCIÓN GPS ────────────────────────────────────────────────────────────
