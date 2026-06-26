@@ -489,7 +489,7 @@ async function loadLayer(input){
     if(b.isValid()) map.fitBounds(b,{padding:[20,20]});
     state.layers.push({id:Date.now(),tipo,name:file.name,geojson:gj,leafletLayer:lLayer,campoNombre:campo,featureCount:gj.features.length});
     renderLayerList();
-    if(tipo==='ambientes'){renderAmbEditor();document.getElementById('ambEditorSection').style.display='block';renderLegend();}
+    if(tipo==='ambientes'){renderAmbEditor();document.getElementById('ambEditorSection').style.display='block';renderLegend();setupMapAmbienteTip();}
     status.textContent=`✅ ${tipo}: ${file.name} (${gj.features.length} polígonos)`; status.className='status-msg ok';
   }catch(e){status.textContent='❌ '+e.message;status.className='status-msg err';}
 }
@@ -551,25 +551,41 @@ function applyAmbienteNames(){
     }).addTo(map);
   });
   renderLegend();
+  setupMapAmbienteTip();
   alert('✅ Nombres y colores aplicados');
 }
 
-function showAmbTip(val){
-  const entry=state.ambienteMap[val];
-  const nombre=(entry?.nombre&&entry.nombre!=='')?entry.nombre:val;
-  const color=entry?.color||'#888';
-  const tip=document.getElementById('ambHoverTip');
-  tip.innerHTML=`<span style="display:inline-block;width:11px;height:11px;border-radius:2px;background:${color};margin-right:5px;vertical-align:middle"></span>${nombre}`;
-  tip.style.display='block';
-  clearTimeout(tip._t);
-  // en móvil (click) se oculta solo; en desktop se oculta con mouseout
-  tip._t=setTimeout(()=>tip.style.display='none',3500);
+// ─── TOOLTIP AMBIENTE EN MAPA (listener único) ───────────────────────────────
+let ambTipTimer=null;
+function setupMapAmbienteTip(){
+  // Remover listeners previos
+  map.off('mousemove click');
+  map.on('mousemove click', e=>{
+    const {lat,lng}=e.latlng;
+    const ambLayer=state.layers.find(l=>l.tipo==='ambientes');
+    if(!ambLayer) return;
+    for(const feat of ambLayer.geojson.features){
+      if(pointInFeature(lng,lat,feat)){
+        const val=String(feat.properties?.[ambLayer.campoNombre]||'');
+        const entry=state.ambienteMap[val];
+        const nombre=(entry?.nombre&&entry.nombre!=='')?entry.nombre:val;
+        const color=entry?.color||'#888';
+        const tip=document.getElementById('ambHoverTip');
+        tip.innerHTML=`<span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:${color};border:1px solid rgba(255,255,255,.4);flex-shrink:0"></span>&nbsp;${nombre}`;
+        tip.style.display='flex';
+        clearTimeout(ambTipTimer);
+        ambTipTimer=setTimeout(()=>tip.style.display='none', e.type==='click'?3000:2000);
+        return;
+      }
+    }
+    // No está sobre ningún ambiente
+    clearTimeout(ambTipTimer);
+    document.getElementById('ambHoverTip').style.display='none';
+  });
 }
-function hideAmbTip(){
-  const tip=document.getElementById('ambHoverTip');
-  clearTimeout(tip._t);
-  tip._t=setTimeout(()=>tip.style.display='none',300);
-}
+
+function showAmbTip(val){} // ya no se usa individualmente
+function hideAmbTip(){}
 
 function renderLegend(){
   const entries=Object.entries(state.ambienteMap);
@@ -579,8 +595,8 @@ function renderLegend(){
   items.innerHTML=entries.map(([val,info])=>{
     const lbl=info.nombre&&info.nombre!==''?info.nombre:val;
     return `<div class="legend-item">
-      <div class="legend-swatch" style="background:${info.color};border:1px solid rgba(0,0,0,.2)"></div>
-      <span class="legend-label" title="${lbl}">${lbl}</span>
+      <span class="legend-swatch" style="background:${info.color}"></span>
+      <span class="legend-label">${lbl}</span>
     </div>`;
   }).join('');
   legend.style.display='block';
