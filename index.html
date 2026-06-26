@@ -473,27 +473,14 @@ async function loadLayer(input){
       pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:6,color:'#e65100',fillColor:'#e65100',fillOpacity:.9,weight:2}),
       onEachFeature:(f,l)=>{
         const val=String(f.properties[campo]||'');
-        const lbl=tipo==='ambientes'&&state.ambienteMap[val]?.nombre?state.ambienteMap[val].nombre:val;
         if(tipo==='lotes'){
-          // Etiqueta permanente centrada en el polígono
+          const lbl=val||'Sin nombre';
           l.bindTooltip(lbl,{permanent:true,direction:'center',className:'lote-label'});
         } else if(tipo==='ambientes'){
-          l.on('mouseover mousemove click',e=>{
-            const val=String(f.properties[campo]||'');
-            const entry=state.ambienteMap[val];
-            const nombre=(entry?.nombre&&entry.nombre!=='')?entry.nombre:val;
-            const tip=document.getElementById('ambHoverTip');
-            tip.textContent='🌿 '+nombre; tip.style.display='block';
-            clearTimeout(tip._t);
-            tip._t=setTimeout(()=>tip.style.display='none',3000);
-          });
-          l.on('mouseout',()=>{
-            const tip=document.getElementById('ambHoverTip');
-            clearTimeout(tip._t);
-            tip._t=setTimeout(()=>tip.style.display='none',400);
-          });
+          l.on('mouseover click',()=>showAmbTip(val));
+          l.on('mouseout',hideAmbTip);
         } else {
-          if(lbl) l.bindTooltip(lbl,{permanent:false,sticky:true});
+          if(val) l.bindTooltip(val,{permanent:false,sticky:true});
         }
       }
     }).addTo(map);
@@ -558,27 +545,30 @@ function applyAmbienteNames(){
       style:f=>{const val=String(f.properties[layer.campoNombre]||'');const e=state.ambienteMap[val];return{color:'#333',weight:1,fillColor:e?e.color:'#888',fillOpacity:0.55};},
       onEachFeature:(f,l)=>{
         const val=String(f.properties[layer.campoNombre]||'');
-        const e=state.ambienteMap[val];
-        const lbl=(e?.nombre)||val;
-        l.on('mouseover mousemove click',e=>{
-          const val=String(f.properties[layer.campoNombre]||'');
-          const entry=state.ambienteMap[val];
-          const nombre=(entry?.nombre&&entry.nombre!=='')?entry.nombre:val;
-          const t=document.getElementById('ambHoverTip');
-          t.textContent='🌿 '+nombre; t.style.display='block';
-          clearTimeout(t._t);
-          t._t=setTimeout(()=>t.style.display='none',3000);
-        });
-        l.on('mouseout',()=>{
-          const t=document.getElementById('ambHoverTip');
-          clearTimeout(t._t);
-          t._t=setTimeout(()=>t.style.display='none',400);
-        });
+        l.on('mouseover click',()=>showAmbTip(val));
+        l.on('mouseout',hideAmbTip);
       }
     }).addTo(map);
   });
   renderLegend();
   alert('✅ Nombres y colores aplicados');
+}
+
+function showAmbTip(val){
+  const entry=state.ambienteMap[val];
+  const nombre=(entry?.nombre&&entry.nombre!=='')?entry.nombre:val;
+  const color=entry?.color||'#888';
+  const tip=document.getElementById('ambHoverTip');
+  tip.innerHTML=`<span style="display:inline-block;width:11px;height:11px;border-radius:2px;background:${color};margin-right:5px;vertical-align:middle"></span>${nombre}`;
+  tip.style.display='block';
+  clearTimeout(tip._t);
+  // en móvil (click) se oculta solo; en desktop se oculta con mouseout
+  tip._t=setTimeout(()=>tip.style.display='none',3500);
+}
+function hideAmbTip(){
+  const tip=document.getElementById('ambHoverTip');
+  clearTimeout(tip._t);
+  tip._t=setTimeout(()=>tip.style.display='none',300);
 }
 
 function renderLegend(){
@@ -588,7 +578,10 @@ function renderLegend(){
   if(!entries.length){legend.style.display='none';return;}
   items.innerHTML=entries.map(([val,info])=>{
     const lbl=info.nombre&&info.nombre!==''?info.nombre:val;
-    return `<div class="legend-item"><div class="legend-swatch" style="background:${info.color}"></div><span class="legend-label" title="${lbl}">${lbl}</span></div>`;
+    return `<div class="legend-item">
+      <div class="legend-swatch" style="background:${info.color};border:1px solid rgba(0,0,0,.2)"></div>
+      <span class="legend-label" title="${lbl}">${lbl}</span>
+    </div>`;
   }).join('');
   legend.style.display='block';
 }
