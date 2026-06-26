@@ -787,8 +787,20 @@ function micToField(targetOrId){
     // Para campos numéricos: extraer número del texto
     const isNum=target.type==='number';
     if(isNum){
-      const num=txt.replace(/[^\d.,]/g,'').replace(',','.');
-      target.value=parseFloat(num)||txt;
+      // Limpiar formato: "4.816,67" → 4816.67 / "4,816.67" → 4816.67
+      let clean=txt.trim();
+      // Detectar si coma es decimal o miles
+      const hasPoint=clean.includes('.');
+      const hasComma=clean.includes(',');
+      if(hasPoint&&hasComma){
+        // formato con separador de miles: quitar el de miles, convertir decimal
+        if(clean.indexOf('.')< clean.indexOf(',')) clean=clean.replace(/\./g,'').replace(',','.');
+        else clean=clean.replace(/,/g,'');
+      } else if(hasComma){
+        clean=clean.replace(',','.');
+      }
+      clean=clean.replace(/[^\d.]/g,'');
+      target.value=parseFloat(clean)||'';
     } else {
       target.value=(target.value?target.value+' ':'')+txt;
     }
@@ -856,6 +868,9 @@ function renderResumen(){
   function avgP(wps2,campo){
     const vals=wps2.map(wp=>({v:getVal(wp,campo),a:getAmbArea(wp.ambiente)})).filter(x=>x.v>0);
     if(!vals.length) return '-';
+    // Si todas las áreas son 1 (no se encontró área real), usar promedio simple
+    const allDefault=vals.every(x=>x.a===1);
+    if(allDefault) return (vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
     const tot=vals.reduce((a,x)=>a+x.a,0);
     if(!tot) return (vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
     return (vals.reduce((a,x)=>a+x.v*x.a,0)/tot).toFixed(1);
