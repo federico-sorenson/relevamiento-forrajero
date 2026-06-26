@@ -241,14 +241,14 @@ tr:last-child td{border:none}
       <div class="field-group">
         <label>kgMS/ha</label>
         <div class="input-mic-row">
-          <input type="number" id="wpKgMS" placeholder="0" min="0" step="10"/>
+          <input type="number" id="wpKgMS" placeholder="" min="0" step="10"/>
           <button class="btn-mic" onclick="micToField('wpKgMS')" title="Dictar kgMS/ha">🎙️</button>
         </div>
       </div>
       <div class="field-group">
         <label>Calidad (1–5)</label>
         <div class="input-mic-row">
-          <input type="number" id="wpCalidad" placeholder="3" min="1" max="5" step="0.1"/>
+          <input type="number" id="wpCalidad" placeholder="" min="1" max="5" step="0.1"/>
           <button class="btn-mic" onclick="micToField('wpCalidad')" title="Dictar calidad">🎙️</button>
         </div>
       </div>
@@ -322,8 +322,8 @@ const state={
   pos:null,
   waypoints:[],       // locales
   allWaypoints:[],    // locales + nube (para resumen y export)
-  recursos:['Pastura','Monte nativo','Verdeo','Campo natural'],
-  campos:['Altura (cm)','% cobertura'],
+  recursos:['Campo natural','Pastura','Cultivo'],
+  campos:[],
   layers:[],
   ambienteMap:{},
   pendingLayerType:null,
@@ -700,8 +700,11 @@ function openWaypointModal(){
       <input type="number" class="campo-extra" data-campo="${c}" placeholder="0" step="any"/>
       <button class="btn-mic" onclick="micToField(this.previousElementSibling)" title="Dictar ${c}">🎙️</button>
     </div></div>`).join('');
-  ['wpKgMS','wpCalidad','wpNotas','wpRecursoCustom'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('transcripcionBox') && (document.getElementById('transcripcionBox').style.display='none');
+  ['wpKgMS','wpCalidad','wpNotas','wpRecursoCustom'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  document.querySelectorAll('.campo-extra').forEach(el=>el.value='');
+  document.getElementById('wpRecurso').selectedIndex=0;
   openModal('modalWP');
 }
 
