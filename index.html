@@ -47,8 +47,12 @@ nav h1{font-size:1rem;font-weight:700;flex:1}
 .detected-badge{background:var(--verde-ll);border:1.5px solid var(--verde-l);color:var(--verde);border-radius:8px;padding:9px 10px;font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:6px;min-height:40px}
 .btn-primary{width:100%;padding:13px;background:var(--verde);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px}
 .btn-secondary{width:100%;padding:11px;background:var(--gris-l);color:var(--gris);border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;margin-top:6px}
-.btn-audio{width:100%;padding:10px;border-radius:8px;border:1.5px solid var(--verde-l);background:var(--verde-ll);color:var(--verde);font-weight:600;font-size:.85rem;cursor:pointer;margin-bottom:12px}
-.btn-audio.recording{background:#ffebee;border-color:#e53935;color:#e53935;animation:pulse 1s infinite}
+/* MIC BUTTON */
+.input-mic-row{display:flex;gap:6px;align-items:center}
+.input-mic-row input,.input-mic-row select,.input-mic-row textarea{flex:1}
+.btn-mic{width:36px;height:36px;min-width:36px;border-radius:50%;border:1.5px solid #cfd8dc;background:#f5f5f5;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:.15s}
+.btn-mic.active{background:#ffebee;border-color:#e53935;animation:pulse 1s infinite}
+
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 .config-section{background:#fff;margin:10px;border-radius:12px;padding:14px;box-shadow:var(--shadow)}
 .config-section h3{font-size:.88rem;font-weight:700;color:var(--verde);margin-bottom:12px}
@@ -227,27 +231,35 @@ tr:last-child td{border:none}
     </div>
     <div class="field-group">
       <label>Tipo de recurso forrajero</label>
-      <select id="wpRecurso"></select>
+      <div class="input-mic-row">
+        <select id="wpRecurso"></select>
+        <button class="btn-mic" onclick="micToField('wpRecursoCustom')" title="Dictar recurso">🎙️</button>
+      </div>
+      <input type="text" id="wpRecursoCustom" placeholder="O escribí / dictá un recurso..." style="margin-top:6px;width:100%;padding:9px 10px;border:1.5px solid #cfd8dc;border-radius:8px;font-size:.9rem"/>
     </div>
     <div class="row2">
       <div class="field-group">
         <label>kgMS/ha</label>
-        <input type="number" id="wpKgMS" placeholder="0" min="0" step="10"/>
+        <div class="input-mic-row">
+          <input type="number" id="wpKgMS" placeholder="0" min="0" step="10"/>
+          <button class="btn-mic" onclick="micToField('wpKgMS')" title="Dictar kgMS/ha">🎙️</button>
+        </div>
       </div>
       <div class="field-group">
         <label>Calidad (1–5)</label>
-        <input type="number" id="wpCalidad" placeholder="3" min="1" max="5" step="0.5"/>
+        <div class="input-mic-row">
+          <input type="number" id="wpCalidad" placeholder="3" min="1" max="5" step="0.1"/>
+          <button class="btn-mic" onclick="micToField('wpCalidad')" title="Dictar calidad">🎙️</button>
+        </div>
       </div>
     </div>
     <div id="camposExtra"></div>
-    <button class="btn-audio" id="btnRecord" onclick="toggleRecord()">🎙️ Grabar nota de voz</button>
-    <div id="transcripcionBox" style="display:none" class="field-group">
-      <label>Transcripción</label>
-      <textarea id="wpTranscripcion" rows="2"></textarea>
-    </div>
     <div class="field-group">
-      <label>Notas escritas</label>
-      <textarea id="wpNotas" rows="2" placeholder="Observaciones adicionales..."></textarea>
+      <label>Notas</label>
+      <div class="input-mic-row">
+        <textarea id="wpNotas" rows="2" placeholder="Observaciones adicionales..."></textarea>
+        <button class="btn-mic" onclick="micToField('wpNotas')" title="Dictar notas">🎙️</button>
+      </div>
     </div>
     <button class="btn-primary" onclick="saveWaypoint()">💾 Guardar waypoint</button>
     <button class="btn-secondary" onclick="closeModal('modalWP')">Cancelar</button>
@@ -684,9 +696,12 @@ function openWaypointModal(){
   document.getElementById('wpRecurso').innerHTML=state.recursos.map(r=>`<option>${r}</option>`).join('');
   document.getElementById('camposExtra').innerHTML=state.campos.map(c=>`
     <div class="field-group"><label>${c}</label>
-    <input type="number" class="campo-extra" data-campo="${c}" placeholder="0" step="any"/></div>`).join('');
-  ['wpKgMS','wpCalidad','wpNotas','wpTranscripcion'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('transcripcionBox').style.display='none';
+    <div class="input-mic-row">
+      <input type="number" class="campo-extra" data-campo="${c}" placeholder="0" step="any"/>
+      <button class="btn-mic" onclick="micToField(this.previousElementSibling)" title="Dictar ${c}">🎙️</button>
+    </div></div>`).join('');
+  ['wpKgMS','wpCalidad','wpNotas','wpRecursoCustom'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('transcripcionBox') && (document.getElementById('transcripcionBox').style.display='none');
   openModal('modalWP');
 }
 
@@ -700,7 +715,7 @@ function saveWaypoint(){
     lat:coords[0],lng:coords[1],
     lote:document.getElementById('wpLoteTxt').textContent,
     ambiente:document.getElementById('wpAmbTxt').textContent,
-    recurso:document.getElementById('wpRecurso').value,
+    recurso: (document.getElementById('wpRecursoCustom').value.trim()) || document.getElementById('wpRecurso').value,
     kgMS:parseFloat(document.getElementById('wpKgMS').value)||0,
     calidad:parseFloat(document.getElementById('wpCalidad').value)||0,
     extras,
@@ -731,28 +746,64 @@ function addWPMarker(wp){
 }
 state.waypoints.forEach(addWPMarker);
 
-// ─── VOZ ──────────────────────────────────────────────────────────────────────
-function toggleRecord(){if(!state.recording)startRecord();else stopRecord();}
-function startRecord(){
+// ─── VOZ POR CAMPO ────────────────────────────────────────────────────────────
+let activeMicBtn=null;
+let activeRec=null;
+
+function micToField(targetOrId){
+  const target = typeof targetOrId==='string' ? document.getElementById(targetOrId) : targetOrId;
+  if(!target) return;
+
+  // Si ya hay un mic activo, detenerlo
+  if(activeRec){
+    activeRec.stop(); activeRec=null;
+    if(activeMicBtn){activeMicBtn.classList.remove('active');activeMicBtn.textContent='🎙️';}
+    activeMicBtn=null;
+    return;
+  }
+
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert('Voz no disponible, usá texto.');return;}
-  state.recognition=new SR();
-  state.recognition.lang='es-AR';state.recognition.continuous=true;state.recognition.interimResults=false;
-  state.recognition.onresult=e=>{
-    const txt=Array.from(e.results).map(r=>r[0].transcript).join(' ');
-    document.getElementById('wpTranscripcion').value+=txt+' ';
-    document.getElementById('transcripcionBox').style.display='block';
+  if(!SR){alert('Reconocimiento de voz no disponible. Escribí el valor.');return;}
+
+  // Encontrar el botón mic correspondiente
+  const btn = target.parentElement?.querySelector('.btn-mic') ||
+              target.closest('.input-mic-row')?.querySelector('.btn-mic');
+
+  const rec=new SR();
+  rec.lang='es-AR';
+  rec.continuous=false;
+  rec.interimResults=false;
+
+  rec.onstart=()=>{
+    activeRec=rec; activeMicBtn=btn;
+    if(btn){btn.classList.add('active');btn.textContent='⏹';}
   };
-  state.recognition.onerror=()=>stopRecord();
-  state.recognition.start();state.recording=true;
-  const b=document.getElementById('btnRecord');b.className='btn-audio recording';b.textContent='⏹ Detener grabación';
+
+  rec.onresult=e=>{
+    const txt=e.results[0][0].transcript;
+    // Para campos numéricos: extraer número del texto
+    const isNum=target.type==='number';
+    if(isNum){
+      const num=txt.replace(/[^\d.,]/g,'').replace(',','.');
+      target.value=parseFloat(num)||txt;
+    } else {
+      target.value=(target.value?target.value+' ':'')+txt;
+    }
+  };
+
+  rec.onerror=()=>stopMic(btn);
+  rec.onend=()=>stopMic(btn);
+  rec.start();
 }
-function stopRecord(){
-  if(state.recognition){state.recognition.stop();state.recognition=null;}
-  state.recording=false;
-  const b=document.getElementById('btnRecord');
-  if(b){b.className='btn-audio';b.textContent='🎙️ Grabar nota de voz';}
+
+function stopMic(btn){
+  activeRec=null; activeMicBtn=null;
+  if(btn){btn.classList.remove('active');btn.textContent='🎙️';}
 }
+
+function toggleRecord(){} // legacy, no usado
+function startRecord(){}
+function stopRecord(){stopMic(activeMicBtn);}
 
 // ─── WP LIST ─────────────────────────────────────────────────────────────────
 function renderWPList(){
