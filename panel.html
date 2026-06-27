@@ -18,27 +18,23 @@
 body{background:var(--gris-ll);color:#222;min-height:100vh}
 header{background:var(--verde);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
 header h1{font-size:1.1rem;font-weight:700;flex:1}
-.header-meta{font-size:.78rem;opacity:.85;text-align:right;line-height:1.5}
+.header-meta{font-size:.78rem;opacity:.85;text-align:right;line-height:1.6}
 .btn-refresh{background:rgba(255,255,255,.2);border:none;color:#fff;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600}
 .btn-refresh:hover{background:rgba(255,255,255,.3)}
 
-.main{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:14px;padding:14px;max-width:1400px;margin:0 auto}
+.main{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px;max-width:1400px;margin:0 auto}
 
 .card{background:#fff;border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
 .card-header{padding:12px 16px;border-bottom:1px solid var(--gris-l);display:flex;align-items:center;justify-content:space-between}
 .card-header h2{font-size:.92rem;font-weight:700;color:var(--gris)}
-.card-body{padding:14px}
 
-/* MAPA */
-.card-map{grid-column:1/3}
-#map{height:420px;width:100%}
-.map-toolbar{padding:10px 14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--gris-l)}
-.btn-layer{padding:6px 12px;border-radius:6px;border:1.5px solid var(--gris-l);background:#fff;font-size:.8rem;cursor:pointer;font-weight:600;color:var(--gris)}
-.btn-layer:hover{border-color:var(--verde);color:var(--verde)}
-.map-legend{position:absolute;bottom:12px;left:12px;z-index:999;background:rgba(255,255,255,.95);border-radius:8px;padding:8px 10px;box-shadow:var(--shadow);max-width:150px;font-size:.74rem}
-.map-legend h4{font-weight:700;color:var(--gris);margin-bottom:5px;font-size:.72rem;text-transform:uppercase}
-.leg-item{display:flex;align-items:center;gap:6px;margin-bottom:3px}
-.leg-dot{width:16px;height:16px;border-radius:3px;flex-shrink:0;border:1px solid rgba(0,0,0,.15)}
+/* FILTROS */
+.card-filtros{grid-column:1/3;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card-filtros span{font-size:.82rem;font-weight:700;color:var(--gris)}
+.card-filtros select{padding:6px 10px;border:1.5px solid var(--gris-l);border-radius:7px;font-size:.82rem;background:#fff;color:#222}
+.btn-clear{padding:6px 12px;border:1.5px solid var(--gris-l);border-radius:7px;font-size:.82rem;background:#fff;cursor:pointer;color:var(--gris);font-weight:600}
+.btn-clear:hover{border-color:#e53935;color:#e53935}
+.filt-count{font-size:.78rem;color:#90a4ae;margin-left:4px}
 
 /* STATS */
 .stats-row{grid-column:1/3;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -46,47 +42,51 @@ header h1{font-size:1.1rem;font-weight:700;flex:1}
 .stat-val{font-size:1.8rem;font-weight:700;color:var(--verde)}
 .stat-label{font-size:.76rem;color:#90a4ae;margin-top:2px}
 
+/* MAPA */
+.card-map{grid-column:1/3}
+#map{height:420px;width:100%}
+.map-toolbar{padding:10px 14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--gris-l);background:#fafafa}
+.btn-layer{padding:6px 12px;border-radius:6px;border:1.5px solid var(--gris-l);background:#fff;font-size:.8rem;cursor:pointer;font-weight:600;color:var(--gris)}
+.btn-layer:hover{border-color:var(--verde);color:var(--verde)}
+.layer-tag{display:flex;align-items:center;gap:4px;background:var(--verde-ll);color:var(--verde);padding:3px 10px;border-radius:12px;font-size:.76rem;font-weight:600}
+.layer-tag button{background:none;border:none;cursor:pointer;color:#c62828;font-size:.85rem}
+.map-legend{position:absolute;bottom:12px;left:12px;z-index:999;background:rgba(255,255,255,.95);border-radius:8px;padding:8px 10px;box-shadow:var(--shadow);max-width:150px;font-size:.74rem;display:none}
+.map-legend h4{font-weight:700;color:var(--gris);margin-bottom:5px;font-size:.72rem;text-transform:uppercase}
+
 /* TABLAS */
-.card-table{grid-column:1/3;overflow-x:auto}
+.card-table{grid-column:1/3}
+.tab-bar{display:flex;border-bottom:2px solid var(--gris-l);padding:0 16px;background:#fafafa}
+.tab-btn{padding:10px 16px;border:none;background:none;font-size:.82rem;font-weight:600;color:var(--gris);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px}
+.tab-btn.active{color:var(--verde);border-bottom-color:var(--verde)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
 table{width:100%;border-collapse:collapse;font-size:.78rem}
-th{background:var(--gris-l);padding:7px 10px;text-align:left;font-weight:700;color:var(--gris);white-space:nowrap}
+th{background:var(--gris-l);padding:7px 10px;text-align:left;font-weight:700;color:var(--gris);white-space:nowrap;position:sticky;top:0}
 td{padding:7px 10px;border-bottom:1px solid var(--gris-l)}
 tr:last-child td{border:none}
 tr:hover td{background:#f9fbe7}
 .badge{padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700}
 .badge-lote{background:var(--azul-l);color:var(--azul)}
-.badge-amb{background:var(--verde-ll);color:var(--verde)}
 
 /* CHARTS */
 .card-chart{height:320px;display:flex;flex-direction:column}
-.card-chart .card-body{flex:1;position:relative;padding:10px}
+.card-chart .chart-body{flex:1;position:relative;padding:10px}
 
 /* EXPORT */
-.export-row{display:flex;gap:8px;padding:12px 16px}
+.export-row{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--gris-l);background:#fafafa}
 .btn-exp{padding:9px 18px;border:none;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer}
 .btn-exp-csv{background:var(--azul);color:#fff}
 .btn-exp-geo{background:#4a148c;color:#fff}
-
-/* FILE LOADER */
-.file-loader{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.btn-file{padding:6px 12px;border-radius:6px;border:1.5px solid var(--gris-l);background:#fff;font-size:.8rem;cursor:pointer;font-weight:600;color:var(--gris)}
-.layer-tag{display:flex;align-items:center;gap:4px;background:var(--verde-ll);color:var(--verde);padding:3px 10px;border-radius:12px;font-size:.76rem;font-weight:600}
-.layer-tag button{background:none;border:none;cursor:pointer;color:#c62828;font-size:.85rem}
 
 .empty{text-align:center;color:#b0bec5;padding:30px;font-size:.9rem}
 .loading{text-align:center;color:var(--verde);padding:30px;font-size:.9rem;animation:pulse 1.2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* TABS */
-.tab-bar{display:flex;border-bottom:2px solid var(--gris-l);padding:0 16px}
-.tab-btn{padding:10px 16px;border:none;background:none;font-size:.82rem;font-weight:600;color:var(--gris);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px}
-.tab-btn.active{color:var(--verde);border-bottom-color:var(--verde)}
-.tab-pane{display:none;padding:0}
-.tab-pane.active{display:block}
+.leaflet-tooltip.lote-label{background:transparent;border:none;box-shadow:none;font-size:.75rem;font-weight:700;color:#1565c0;text-shadow:0 0 3px #fff,-1px -1px 0 #fff,1px 1px 0 #fff}
 
 @media(max-width:900px){
   .main{grid-template-columns:1fr}
-  .card-map,.stats-row,.card-table{grid-column:1}
+  .card-map,.stats-row,.card-table,.card-filtros{grid-column:1}
   .stats-row{grid-template-columns:1fr 1fr}
 }
 </style>
@@ -105,9 +105,20 @@ tr:hover td{background:#f9fbe7}
 
 <div class="main">
 
+  <!-- FILTROS -->
+  <div class="card card-filtros">
+    <span>🔍 Filtros:</span>
+    <select id="filtCampo" onchange="applyFilters()"><option value="">Todos los campos</option></select>
+    <select id="filtTecnico" onchange="applyFilters()"><option value="">Todos los técnicos</option></select>
+    <select id="filtLote" onchange="applyFilters()"><option value="">Todos los lotes</option></select>
+    <select id="filtAmbiente" onchange="applyFilters()"><option value="">Todos los ambientes</option></select>
+    <button class="btn-clear" onclick="clearFilters()">✕ Limpiar</button>
+    <span class="filt-count" id="filtCount"></span>
+  </div>
+
   <!-- STATS -->
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-val" id="statWP">—</div><div class="stat-label">Waypoints totales</div></div>
+    <div class="stat-card"><div class="stat-val" id="statWP">—</div><div class="stat-label">Waypoints</div></div>
     <div class="stat-card"><div class="stat-val" id="statLotes">—</div><div class="stat-label">Lotes relevados</div></div>
     <div class="stat-card"><div class="stat-val" id="statAmb">—</div><div class="stat-label">Ambientes</div></div>
     <div class="stat-card"><div class="stat-val" id="statKg">—</div><div class="stat-label">kgMS/ha promedio</div></div>
@@ -117,68 +128,65 @@ tr:hover td{background:#f9fbe7}
   <div class="card card-map">
     <div class="map-toolbar">
       <span style="font-size:.8rem;font-weight:600;color:var(--gris)">Capas:</span>
-      <label class="btn-file" for="fileLotes">📂 Lotes (GeoJSON)</label>
+      <label class="btn-layer" for="fileLotes">📂 Lotes</label>
       <input type="file" id="fileLotes" accept="*/*" style="display:none" onchange="loadGeoLayer(this,'lotes')"/>
-      <label class="btn-file" for="fileAmb">📂 Ambientes (GeoJSON)</label>
+      <label class="btn-layer" for="fileAmb">📂 Ambientes</label>
       <input type="file" id="fileAmb" accept="*/*" style="display:none" onchange="loadGeoLayer(this,'ambientes')"/>
-      <div id="layerTags" class="file-loader"></div>
+      <div id="layerTags" style="display:flex;gap:6px;flex-wrap:wrap"></div>
     </div>
     <div style="position:relative">
       <div id="map"></div>
-      <div class="map-legend" id="mapLegend" style="display:none">
+      <div class="map-legend" id="mapLegend">
         <h4>🌿 Ambientes</h4>
         <div id="legendItems"></div>
       </div>
     </div>
   </div>
 
-  <!-- TABLA RESUMEN -->
+  <!-- TABLAS -->
   <div class="card card-table">
     <div class="tab-bar">
       <button class="tab-btn active" onclick="showTab('tabLxAxR',this)">Lote × Amb × Recurso</button>
       <button class="tab-btn" onclick="showTab('tabLote',this)">Por Lote</button>
       <button class="tab-btn" onclick="showTab('tabRaw',this)">Datos crudos</button>
     </div>
-    <div id="tabLxAxR" class="tab-pane active"><div class="empty loading" id="loadingMsg">Cargando datos...</div></div>
-    <div id="tabLote" class="tab-pane"></div>
-    <div id="tabRaw" class="tab-pane"></div>
+    <div style="overflow-x:auto;max-height:360px;overflow-y:auto">
+      <div id="tabLxAxR" class="tab-pane active"><div class="loading" id="loadingMsg">Cargando datos...</div></div>
+      <div id="tabLote" class="tab-pane"></div>
+      <div id="tabRaw" class="tab-pane"></div>
+    </div>
     <div class="export-row">
       <button class="btn-exp btn-exp-csv" onclick="exportCSV()">📄 Exportar CSV</button>
       <button class="btn-exp btn-exp-geo" onclick="exportGeoJSON()">🗺️ Exportar GeoJSON</button>
     </div>
   </div>
 
-  <!-- CHART kgMS por lote -->
+  <!-- CHART LOTE -->
   <div class="card card-chart">
     <div class="card-header"><h2>📊 kgMS/ha por Lote</h2></div>
-    <div class="card-body"><canvas id="chartLote"></canvas></div>
+    <div class="chart-body"><canvas id="chartLote"></canvas></div>
   </div>
 
-  <!-- CHART kgMS por ambiente -->
+  <!-- CHART AMBIENTE -->
   <div class="card card-chart">
     <div class="card-header"><h2>📊 kgMS/ha por Ambiente</h2></div>
-    <div class="card-body"><canvas id="chartAmb"></canvas></div>
+    <div class="chart-body"><canvas id="chartAmb"></canvas></div>
   </div>
 
 </div>
 
 <script>
-// ─── CONFIG ──────────────────────────────────────────────────────────────────
 const SB_URL='https://gjmeinjybshssyqyfamo.supabase.co';
 const SB_KEY='sb_publishable_SyjOCfEf2Gr8W_TbaEsDAg_wR9ecbY6';
-
-// ─── STATE ───────────────────────────────────────────────────────────────────
-let allWP=[];
-let extraCampos=[];
-let ambienteMap={};  // val → {color, nombre}
-let geoLayers={lotes:null, ambientes:null};
-let geoData={lotes:null, ambientes:null};
-let charts={lote:null, amb:null};
 
 const PAL=['#e53935','#8e24aa','#1e88e5','#00897b','#f4511e','#c0ca33','#6d4c41','#039be5','#43a047','#fdd835','#d81b60','#3949ab','#00acc1','#7cb342','#fb8c00'];
 function palColor(i){return PAL[i%PAL.length];}
 function dnToHex(dn){const n=parseInt(dn);if(isNaN(n))return null;if(n>65535){const r=(n>>16)&0xFF,g=(n>>8)&0xFF,b=n&0xFF;return`#${h2(r)}${h2(g)}${h2(b)}`;}return null;}
 function h2(v){return v.toString(16).padStart(2,'0');}
+
+let allWP=[], filteredWP=[], extraCampos=[], ambienteMap={};
+let geoLayers={lotes:null,ambientes:null}, geoData={lotes:null,ambientes:null};
+let charts={lote:null,amb:null};
 
 // ─── MAP ─────────────────────────────────────────────────────────────────────
 const map=L.map('map').setView([-34.6,-60.5],10);
@@ -188,7 +196,7 @@ let wpLayerGroup=L.featureGroup().addTo(map);
 // ─── LOAD DATA ───────────────────────────────────────────────────────────────
 async function loadData(){
   document.getElementById('loadingMsg').textContent='Cargando datos...';
-  document.getElementById('loadingMsg').className='empty loading';
+  document.getElementById('loadingMsg').className='loading';
   try{
     const res=await fetch(`${SB_URL}/rest/v1/waypoints?select=*&order=ts.asc`,{
       headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
@@ -196,138 +204,151 @@ async function loadData(){
     const data=await res.json();
     allWP=data.map(r=>({
       id:r.id, tecnico:r.tecnico||'—', lat:r.lat, lng:r.lng,
+      campo:r.campo||'',
       lote:r.lote||'Sin lote', ambiente:r.ambiente||'Sin ambiente',
       recurso:r.recurso||'—',
       kgMS:parseFloat(r.kg_ms)||0,
       calidad:parseFloat(r.calidad)||0,
-      extras:r.extras||{},
-      notas:r.notas||'', ts:r.ts
+      extras:r.extras||{}, notas:r.notas||'', ts:r.ts
     }));
-
-    // Detectar campos extra
     const extraSet=new Set();
     allWP.forEach(wp=>Object.keys(wp.extras||{}).forEach(k=>extraSet.add(k)));
     extraCampos=[...extraSet];
-
-    // Técnicos únicos
     const tecnicos=[...new Set(allWP.map(w=>w.tecnico))];
     document.getElementById('lastUpdate').textContent='Actualizado: '+new Date().toLocaleString('es-AR');
     document.getElementById('techCount').textContent=`${tecnicos.length} técnico(s): ${tecnicos.join(', ')}`;
-
-    renderStats();
-    renderWPMarkers();
-    renderTablas();
-    renderCharts();
+    filteredWP=[...allWP];
+    populateFilters();
+    renderAll();
   }catch(e){
-    document.getElementById('loadingMsg').textContent='❌ Error cargando datos: '+e.message;
+    document.getElementById('loadingMsg').textContent='❌ Error: '+e.message;
     document.getElementById('loadingMsg').className='empty';
   }
 }
 
+// ─── FILTROS ─────────────────────────────────────────────────────────────────
+function populateFilters(){
+  const campos=[...new Set(allWP.map(w=>w.campo).filter(Boolean))].sort();
+  const tecnicos=[...new Set(allWP.map(w=>w.tecnico))].sort();
+  const lotes=[...new Set(allWP.map(w=>w.lote))].sort();
+  const ambs=[...new Set(allWP.map(w=>w.ambiente))].sort();
+  const sC=document.getElementById('filtCampo');
+  const sT=document.getElementById('filtTecnico');
+  const sL=document.getElementById('filtLote');
+  const sA=document.getElementById('filtAmbiente');
+  const [curC,curT,curL,curA]=[sC.value,sT.value,sL.value,sA.value];
+  sC.innerHTML='<option value="">Todos los campos</option>'+campos.map(v=>`<option>${v}</option>`).join('');
+  sT.innerHTML='<option value="">Todos los técnicos</option>'+tecnicos.map(v=>`<option>${v}</option>`).join('');
+  sL.innerHTML='<option value="">Todos los lotes</option>'+lotes.map(v=>`<option>${v}</option>`).join('');
+  sA.innerHTML='<option value="">Todos los ambientes</option>'+ambs.map(v=>`<option>${v}</option>`).join('');
+  sC.value=curC;sT.value=curT;sL.value=curL;sA.value=curA;
+}
+
+function applyFilters(){
+  const c=document.getElementById('filtCampo').value;
+  const t=document.getElementById('filtTecnico').value;
+  const l=document.getElementById('filtLote').value;
+  const a=document.getElementById('filtAmbiente').value;
+  filteredWP=allWP.filter(wp=>(!c||wp.campo===c)&&(!t||wp.tecnico===t)&&(!l||wp.lote===l)&&(!a||wp.ambiente===a));
+  const active=[c&&`Campo: ${c}`,t&&`Técnico: ${t}`,l&&`Lote: ${l}`,a&&`Ambiente: ${a}`].filter(Boolean);
+  document.getElementById('filtCount').textContent=active.length?`${filteredWP.length} pts — ${active.join(' · ')}`:`${filteredWP.length} puntos`;
+  renderAll();
+}
+
+function clearFilters(){
+  ['filtCampo','filtTecnico','filtLote','filtAmbiente'].forEach(id=>document.getElementById(id).value='');
+  applyFilters();
+}
+
+function renderAll(){
+  renderStats();renderWPMarkers();renderTablas();renderCharts();
+}
+
 // ─── STATS ───────────────────────────────────────────────────────────────────
 function renderStats(){
-  const lotes=[...new Set(allWP.map(w=>w.lote))];
-  const ambs=[...new Set(allWP.map(w=>w.ambiente))];
-  const kgVals=allWP.map(w=>w.kgMS).filter(v=>v>0);
-  const kgProm=kgVals.length?(kgVals.reduce((a,b)=>a+b,0)/kgVals.length).toFixed(0):'—';
-  document.getElementById('statWP').textContent=allWP.length;
+  const wps=filteredWP;
+  const lotes=[...new Set(wps.map(w=>w.lote))];
+  const ambs=[...new Set(wps.map(w=>w.ambiente))];
+  const kgVals=wps.map(w=>w.kgMS).filter(v=>v>0);
+  document.getElementById('statWP').textContent=wps.length;
   document.getElementById('statLotes').textContent=lotes.length;
   document.getElementById('statAmb').textContent=ambs.length;
-  document.getElementById('statKg').textContent=kgProm;
+  document.getElementById('statKg').textContent=kgVals.length?(kgVals.reduce((a,b)=>a+b,0)/kgVals.length).toFixed(0):'—';
 }
 
 // ─── MARKERS ─────────────────────────────────────────────────────────────────
 function renderWPMarkers(){
   wpLayerGroup.clearLayers();
-  allWP.forEach(wp=>{
+  filteredWP.forEach(wp=>{
     const color=getAmbColor(wp.ambiente);
-    const m=L.circleMarker([wp.lat,wp.lng],{radius:7,color:'#fff',weight:1.5,fillColor:color,fillOpacity:.9})
-      .bindPopup(`
-        <b style="color:${color}">${wp.ambiente}</b><br>
+    L.circleMarker([wp.lat,wp.lng],{radius:7,color:'#fff',weight:1.5,fillColor:color,fillOpacity:.9})
+      .bindPopup(`<b style="color:${color}">${wp.ambiente}</b><br>
+        <b>Campo:</b> ${wp.campo||'—'}<br>
         <b>Lote:</b> ${wp.lote}<br>
         <b>Recurso:</b> ${wp.recurso}<br>
         <b>kgMS/ha:</b> ${wp.kgMS}<br>
         <b>Calidad:</b> ${wp.calidad}<br>
         ${extraCampos.map(c=>`<b>${c}:</b> ${wp.extras[c]||'—'}`).join('<br>')}
         <br><b>Técnico:</b> ${wp.tecnico}<br>
-        <small style="color:#90a4ae">${new Date(wp.ts).toLocaleString('es-AR')}</small>
-      `);
-    wpLayerGroup.addLayer(m);
+        <small style="color:#90a4ae">${new Date(wp.ts).toLocaleString('es-AR')}</small>`)
+      .addTo(wpLayerGroup);
   });
-  if(allWP.length>0){
-    const bounds=wpLayerGroup.getBounds();
-    if(bounds.isValid()) map.fitBounds(bounds,{padding:[30,30]});
-  }
+  if(filteredWP.length>0){const b=wpLayerGroup.getBounds();if(b.isValid())map.fitBounds(b,{padding:[30,30]});}
 }
 
 function getAmbColor(nombre){
   const entry=Object.values(ambienteMap).find(e=>(e.nombre||e.val)===nombre);
-  return entry?entry.color:palColor(Object.keys(ambienteMap).length);
+  if(entry)return entry.color;
+  const idx=[...new Set(filteredWP.map(w=>w.ambiente))].indexOf(nombre);
+  return palColor(idx>=0?idx:0);
 }
 
 // ─── GEO LAYERS ──────────────────────────────────────────────────────────────
 async function loadGeoLayer(input,tipo){
-  const file=input.files[0]; if(!file) return;
+  const file=input.files[0];if(!file)return;
   const text=await file.text();
   let gj=JSON.parse(text);
-  if(gj.type==='Feature') gj={type:'FeatureCollection',features:[gj]};
-
+  if(gj.type==='Feature')gj={type:'FeatureCollection',features:[gj]};
   const keys=Object.keys(gj.features[0]?.properties||{});
   const prefL=['Name','name','NOMBRE','nombre','LOTE','lote'];
   const prefA=['ambiente','AMBIENTE','DN','dn','tipo','TIPO','clase','CLASE'];
   let campo=keys[0]||'id';
-  if(tipo==='lotes') campo=prefL.find(k=>keys.includes(k))||keys[0];
-  if(tipo==='ambientes') campo=prefA.find(k=>keys.includes(k))||keys[0];
-
-  if(geoLayers[tipo]) map.removeLayer(geoLayers[tipo]);
-  geoData[tipo]={geojson:gj, campo};
-
+  if(tipo==='lotes')campo=prefL.find(k=>keys.includes(k))||keys[0];
+  if(tipo==='ambientes')campo=prefA.find(k=>keys.includes(k))||keys[0];
+  if(geoLayers[tipo])map.removeLayer(geoLayers[tipo]);
+  geoData[tipo]={geojson:gj,campo};
   if(tipo==='ambientes'){
-    // Construir ambienteMap
     const uniq=[...new Set(gj.features.map(f=>String(f.properties[campo]||'')))];
     const isDN=!isNaN(parseInt(uniq[0]))&&parseInt(uniq[0])>65535;
-    uniq.forEach((val,idx)=>{
-      if(!ambienteMap[val]){
-        ambienteMap[val]={color:isDN?dnToHex(val)||palColor(idx):palColor(idx), nombre:val, val};
-      }
-    });
+    uniq.forEach((val,idx)=>{if(!ambienteMap[val])ambienteMap[val]={color:isDN?dnToHex(val)||palColor(idx):palColor(idx),nombre:val,val};});
   }
-
   geoLayers[tipo]=L.geoJSON(gj,{
     style:f=>{
-      if(tipo==='ambientes'){
-        const val=String(f.properties[campo]||'');
-        return {color:'#333',weight:1,fillColor:ambienteMap[val]?.color||'#888',fillOpacity:.45};
-      }
-      return {color:'#1565c0',weight:2,fillOpacity:0,dashArray:'5 3'};
+      if(tipo==='ambientes'){const val=String(f.properties[campo]||'');return{color:'#333',weight:1,fillColor:ambienteMap[val]?.color||'#888',fillOpacity:.45};}
+      return{color:'#1565c0',weight:2,fillOpacity:0,dashArray:'5 3'};
     },
     onEachFeature:(f,l)=>{
       const val=String(f.properties[campo]||'');
-      if(tipo==='lotes') l.bindTooltip(val,{permanent:true,direction:'center',className:'lote-label'});
+      if(tipo==='lotes')l.bindTooltip(val,{permanent:true,direction:'center',className:'lote-label'});
       else l.bindTooltip(val,{sticky:true});
     }
   }).addTo(map);
-
   const b=geoLayers[tipo].getBounds();
-  if(b.isValid()) map.fitBounds(b,{padding:[20,20]});
-
-  // Tags
-  addLayerTag(tipo, file.name);
+  if(b.isValid())map.fitBounds(b,{padding:[20,20]});
+  addLayerTag(tipo,file.name);
   if(tipo==='ambientes'){renderLegend();renderWPMarkers();}
 }
 
 function addLayerTag(tipo,name){
   const tags=document.getElementById('layerTags');
-  const existing=document.getElementById('tag-'+tipo);
-  if(existing) existing.remove();
-  const div=document.createElement('div');
-  div.className='layer-tag'; div.id='tag-'+tipo;
+  const ex=document.getElementById('tag-'+tipo);if(ex)ex.remove();
+  const div=document.createElement('div');div.className='layer-tag';div.id='tag-'+tipo;
   div.innerHTML=`${tipo==='lotes'?'🏡':'🌿'} ${name} <button onclick="removeLayer('${tipo}')">✕</button>`;
   tags.appendChild(div);
 }
 function removeLayer(tipo){
   if(geoLayers[tipo]){map.removeLayer(geoLayers[tipo]);geoLayers[tipo]=null;geoData[tipo]=null;}
-  const t=document.getElementById('tag-'+tipo); if(t) t.remove();
+  const t=document.getElementById('tag-'+tipo);if(t)t.remove();
   if(tipo==='ambientes'){ambienteMap={};renderLegend();renderWPMarkers();}
 }
 
@@ -337,16 +358,16 @@ function renderLegend(){
   const entries=Object.values(ambienteMap);
   if(!entries.length){leg.style.display='none';return;}
   items.innerHTML=entries.map(e=>`
-    <div class="leg-item">
-      <span class="leg-dot" style="background:${e.color}"></span>
-      <span>${e.nombre||e.val}</span>
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+      <span style="display:block;width:16px;height:16px;min-width:16px;border-radius:3px;background:${e.color};border:1px solid rgba(0,0,0,.2);flex-shrink:0"></span>
+      <span style="font-size:.74rem;color:#222">${e.nombre||e.val}</span>
     </div>`).join('');
   leg.style.display='block';
 }
 
 // ─── CÁLCULOS ─────────────────────────────────────────────────────────────────
 function getAmbArea(ambiente){
-  const al=geoData.ambientes; if(!al) return null;
+  const al=geoData.ambientes;if(!al)return null;
   for(const feat of al.geojson.features){
     const val=String(feat.properties?.[al.campo]||'');
     const entry=ambienteMap[val];
@@ -354,12 +375,11 @@ function getAmbArea(ambiente){
     if(nom===ambiente){
       const g=feat.geometry;
       const c=g.type==='Polygon'?g.coordinates[0]:g.type==='MultiPolygon'?g.coordinates[0][0]:null;
-      if(c) return polyAreaHa(c);
+      if(c)return polyAreaHa(c);
     }
   }
   return null;
 }
-
 function polyAreaHa(coords){
   const R=6371000;let area=0;
   for(let i=0,j=coords.length-1;i<coords.length;j=i++){
@@ -369,113 +389,99 @@ function polyAreaHa(coords){
   }
   return Math.abs(area*R*R/2)/10000;
 }
-
 function getVal(wp,c){return c==='kgMS'?wp.kgMS:c==='calidad'?wp.calidad:(parseFloat(wp.extras?.[c])||0);}
-
 function avgPond(wps,campo){
   const vals=wps.map(wp=>({v:getVal(wp,campo),a:getAmbArea(wp.ambiente)})).filter(x=>x.v>0);
-  if(!vals.length) return null;
+  if(!vals.length)return null;
   const hasArea=vals.some(x=>x.a!==null);
-  if(!hasArea) return vals.reduce((a,x)=>a+x.v,0)/vals.length;
-  const weighted=vals.map(x=>({v:x.v,a:x.a||1}));
-  const tot=weighted.reduce((a,x)=>a+x.a,0);
-  return weighted.reduce((a,x)=>a+x.v*x.a,0)/tot;
+  if(!hasArea)return vals.reduce((a,x)=>a+x.v,0)/vals.length;
+  const w=vals.map(x=>({v:x.v,a:x.a||1}));
+  const tot=w.reduce((a,x)=>a+x.a,0);
+  return w.reduce((a,x)=>a+x.v*x.a,0)/tot;
 }
 
 // ─── TABLAS ──────────────────────────────────────────────────────────────────
 function renderTablas(){
+  const wps=filteredWP;
   const numCampos=['kgMS','calidad',...extraCampos];
   const colH=['kgMS/ha','Calidad',...extraCampos];
-
-  // Agrupar
   const groups={};
-  allWP.forEach(wp=>{
+  wps.forEach(wp=>{
     const k=`${wp.lote}|||${wp.ambiente}|||${wp.recurso}`;
     if(!groups[k])groups[k]={lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,wps:[]};
     groups[k].wps.push(wp);
   });
   const rows=Object.values(groups).sort((a,b)=>a.lote.localeCompare(b.lote)||a.ambiente.localeCompare(b.ambiente));
 
-  // Tab 1: Lote × Amb × Recurso
   const thead=`<tr><th>Lote</th><th>Ambiente</th><th>Recurso</th><th>n</th>${colH.map(h=>`<th>${h}</th>`).join('')}<th>Técnicos</th></tr>`;
   const tbody=rows.map(g=>{
-    const ambColor=getAmbColor(g.ambiente);
-    const tecnicos=[...new Set(g.wps.map(w=>w.tecnico))].join(', ');
-    return `<tr>
+    const ac=getAmbColor(g.ambiente);
+    const tecs=[...new Set(g.wps.map(w=>w.tecnico))].join(', ');
+    return`<tr>
       <td><span class="badge badge-lote">${g.lote}</span></td>
-      <td><span class="badge" style="background:${ambColor}22;color:${ambColor};border:1px solid ${ambColor}55">${g.ambiente}</span></td>
+      <td><span class="badge" style="background:${ac}22;color:${ac};border:1px solid ${ac}55">${g.ambiente}</span></td>
       <td>${g.recurso}</td><td>${g.wps.length}</td>
       ${numCampos.map(c=>{const v=avgPond(g.wps,c);return`<td><b>${v!==null?v.toFixed(1):'—'}</b></td>`;}).join('')}
-      <td style="font-size:.72rem;color:#90a4ae">${tecnicos}</td>
+      <td style="font-size:.72rem;color:#90a4ae">${tecs}</td>
     </tr>`;
   }).join('');
-  document.getElementById('tabLxAxR').innerHTML=`<div style="overflow-x:auto"><table><thead>${thead}</thead><tbody>${tbody}</tbody></table></div>`;
+  document.getElementById('tabLxAxR').innerHTML=wps.length
+    ?`<table><thead>${thead}</thead><tbody>${tbody}</tbody></table>`
+    :'<div class="empty">Sin datos para mostrar</div>';
 
-  // Tab 2: Por Lote
   const byLote={};
-  allWP.forEach(wp=>{if(!byLote[wp.lote])byLote[wp.lote]={lote:wp.lote,wps:[]};byLote[wp.lote].wps.push(wp);});
-  const loteRows=Object.values(byLote).sort((a,b)=>a.lote.localeCompare(b.lote));
-  const ltBody=loteRows.map(g=>`<tr>
-    <td><span class="badge badge-lote">${g.lote}</span></td><td>${g.wps.length}</td>
-    ${numCampos.map(c=>{const v=avgPond(g.wps,c);return`<td><b>${v!==null?v.toFixed(1):'—'}</b></td>`;}).join('')}
+  wps.forEach(wp=>{if(!byLote[wp.lote])byLote[wp.lote]=[];byLote[wp.lote].push(wp);});
+  const loteBody=Object.keys(byLote).sort().map(l=>`<tr>
+    <td><span class="badge badge-lote">${l}</span></td><td>${byLote[l].length}</td>
+    ${numCampos.map(c=>{const v=avgPond(byLote[l],c);return`<td><b>${v!==null?v.toFixed(1):'—'}</b></td>`;}).join('')}
   </tr>`).join('');
-  document.getElementById('tabLote').innerHTML=`<div style="overflow-x:auto"><table>
-    <thead><tr><th>Lote</th><th>n</th>${colH.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
-    <tbody>${ltBody}</tbody></table></div>`;
+  document.getElementById('tabLote').innerHTML=wps.length
+    ?`<table><thead><tr><th>Lote</th><th>n</th>${colH.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${loteBody}</tbody></table>`
+    :'<div class="empty">Sin datos</div>';
 
-  // Tab 3: Datos crudos
-  const rawHead=`<tr><th>Fecha</th><th>Técnico</th><th>Lote</th><th>Ambiente</th><th>Recurso</th><th>kgMS/ha</th><th>Calidad</th>${extraCampos.map(c=>`<th>${c}</th>`).join('')}<th>Notas</th></tr>`;
-  const rawBody=allWP.slice().reverse().map(wp=>`<tr>
+  const rawHead=`<tr><th>Fecha</th><th>Técnico</th><th>Campo</th><th>Lote</th><th>Ambiente</th><th>Recurso</th><th>kgMS/ha</th><th>Calidad</th>${extraCampos.map(c=>`<th>${c}</th>`).join('')}<th>Notas</th></tr>`;
+  const rawBody=wps.slice().reverse().map(wp=>`<tr>
     <td style="white-space:nowrap">${new Date(wp.ts).toLocaleString('es-AR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</td>
-    <td>${wp.tecnico}</td>
+    <td>${wp.tecnico}</td><td>${wp.campo||'—'}</td>
     <td><span class="badge badge-lote">${wp.lote}</span></td>
     <td>${wp.ambiente}</td><td>${wp.recurso}</td>
     <td>${wp.kgMS||'—'}</td><td>${wp.calidad||'—'}</td>
     ${extraCampos.map(c=>`<td>${wp.extras[c]||'—'}</td>`).join('')}
     <td style="font-size:.75rem;color:#607d8b">${wp.notas||''}</td>
   </tr>`).join('');
-  document.getElementById('tabRaw').innerHTML=`<div style="overflow-x:auto"><table><thead>${rawHead}</thead><tbody>${rawBody}</tbody></table></div>`;
+  document.getElementById('tabRaw').innerHTML=wps.length
+    ?`<table><thead>${rawHead}</thead><tbody>${rawBody}</tbody></table>`
+    :'<div class="empty">Sin datos</div>';
 }
 
 // ─── CHARTS ──────────────────────────────────────────────────────────────────
 function renderCharts(){
-  // Por lote
-  const byLote={};
-  allWP.forEach(wp=>{if(!byLote[wp.lote])byLote[wp.lote]=[];byLote[wp.lote].push(wp);});
+  const wps=filteredWP;
+  const byLote={};wps.forEach(wp=>{if(!byLote[wp.lote])byLote[wp.lote]=[];byLote[wp.lote].push(wp);});
   const loteLabels=Object.keys(byLote).sort();
-  const loteVals=loteLabels.map(l=>{const v=avgPond(byLote[l],'kgMS');return v?v.toFixed(1):0;});
-
-  if(charts.lote) charts.lote.destroy();
+  const loteVals=loteLabels.map(l=>{const v=avgPond(byLote[l],'kgMS');return v?parseFloat(v.toFixed(1)):0;});
+  if(charts.lote)charts.lote.destroy();
   charts.lote=new Chart(document.getElementById('chartLote'),{
     type:'bar',
-    data:{
-      labels:loteLabels,
-      datasets:[{label:'kgMS/ha',data:loteVals,
-        backgroundColor:loteLabels.map((_,i)=>palColor(i)+'cc'),
-        borderColor:loteLabels.map((_,i)=>palColor(i)),
-        borderWidth:1.5,borderRadius:6}]
-    },
+    data:{labels:loteLabels,datasets:[{label:'kgMS/ha',data:loteVals,
+      backgroundColor:loteLabels.map((_,i)=>palColor(i)+'bb'),
+      borderColor:loteLabels.map((_,i)=>palColor(i)),
+      borderWidth:1.5,borderRadius:6}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
       scales:{y:{beginAtZero:true,title:{display:true,text:'kgMS/ha'}}}}
   });
 
-  // Por ambiente
-  const byAmb={};
-  allWP.forEach(wp=>{if(!byAmb[wp.ambiente])byAmb[wp.ambiente]=[];byAmb[wp.ambiente].push(wp);});
+  const byAmb={};wps.forEach(wp=>{if(!byAmb[wp.ambiente])byAmb[wp.ambiente]=[];byAmb[wp.ambiente].push(wp);});
   const ambLabels=Object.keys(byAmb).sort();
-  const ambVals=ambLabels.map(a=>{const v=avgPond(byAmb[a],'kgMS');return v?v.toFixed(1):0;});
+  const ambVals=ambLabels.map(a=>{const v=avgPond(byAmb[a],'kgMS');return v?parseFloat(v.toFixed(1)):0;});
   const ambColors=ambLabels.map(a=>getAmbColor(a));
-
-  if(charts.amb) charts.amb.destroy();
+  if(charts.amb)charts.amb.destroy();
   charts.amb=new Chart(document.getElementById('chartAmb'),{
     type:'bar',
-    data:{
-      labels:ambLabels,
-      datasets:[{label:'kgMS/ha',data:ambVals,
-        backgroundColor:ambColors.map(c=>c+'cc'),
-        borderColor:ambColors,
-        borderWidth:1.5,borderRadius:6}]
-    },
+    data:{labels:ambLabels,datasets:[{label:'kgMS/ha',data:ambVals,
+      backgroundColor:ambColors.map(c=>c+'bb'),
+      borderColor:ambColors,
+      borderWidth:1.5,borderRadius:6}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
       scales:{y:{beginAtZero:true,title:{display:true,text:'kgMS/ha'}}}}
   });
@@ -483,56 +489,32 @@ function renderCharts(){
 
 // ─── EXPORT ──────────────────────────────────────────────────────────────────
 function exportCSV(){
-  if(!allWP.length){alert('Sin datos.');return;}
+  const wps=filteredWP;if(!wps.length){alert('Sin datos.');return;}
   const numCampos=['kgMS','calidad',...extraCampos];
   const colH=['kgMS/ha','Calidad',...extraCampos];
-
-  const cols=['id','ts','tecnico','lote','ambiente','recurso','kgMS','calidad','lat','lng','notas',...extraCampos];
-  const dataRows=allWP.map(wp=>[wp.id,wp.ts,wp.tecnico,wp.lote,wp.ambiente,wp.recurso,wp.kgMS,wp.calidad,wp.lat,wp.lng,
-    `"${(wp.notas||'').replace(/"/g,'""')}"`,
-    ...extraCampos.map(c=>wp.extras[c]||0)]);
-
+  const cols=['id','ts','tecnico','campo','lote','ambiente','recurso','kgMS','calidad','lat','lng','notas',...extraCampos];
+  const dataRows=wps.map(wp=>[wp.id,wp.ts,wp.tecnico,wp.campo||'',wp.lote,wp.ambiente,wp.recurso,wp.kgMS,wp.calidad,wp.lat,wp.lng,`"${(wp.notas||'').replace(/"/g,'""')}"`, ...extraCampos.map(c=>wp.extras[c]||0)]);
   const groups={};
-  allWP.forEach(wp=>{
-    const k=`${wp.lote}|||${wp.ambiente}|||${wp.recurso}`;
-    if(!groups[k])groups[k]={lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,wps:[]};
-    groups[k].wps.push(wp);
-  });
-  const resRows=Object.values(groups).sort((a,b)=>a.lote.localeCompare(b.lote)).map(g=>{
-    const v=numCampos.map(c=>{const val=avgPond(g.wps,c);return val!==null?val.toFixed(1):'';});
-    return[g.lote,g.ambiente,g.recurso,g.wps.length,...v].join(',');
-  });
-
-  const byLote={};
-  allWP.forEach(wp=>{if(!byLote[wp.lote])byLote[wp.lote]=[];byLote[wp.lote].push(wp);});
-  const loteRows=Object.keys(byLote).sort().map(l=>{
-    const v=numCampos.map(c=>{const val=avgPond(byLote[l],c);return val!==null?val.toFixed(1):'';});
-    return[l,byLote[l].length,...v].join(',');
-  });
-
+  wps.forEach(wp=>{const k=`${wp.lote}|||${wp.ambiente}|||${wp.recurso}`;if(!groups[k])groups[k]={lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,wps:[]};groups[k].wps.push(wp);});
+  const resRows=Object.values(groups).sort((a,b)=>a.lote.localeCompare(b.lote)).map(g=>[g.lote,g.ambiente,g.recurso,g.wps.length,...numCampos.map(c=>{const v=avgPond(g.wps,c);return v!==null?v.toFixed(1):'';})].join(','));
+  const byLote={};wps.forEach(wp=>{if(!byLote[wp.lote])byLote[wp.lote]=[];byLote[wp.lote].push(wp);});
+  const loteRows=Object.keys(byLote).sort().map(l=>[l,byLote[l].length,...numCampos.map(c=>{const v=avgPond(byLote[l],c);return v!==null?v.toFixed(1):'';})].join(','));
   const csv=[
     '=== DATOS CRUDOS ===',cols.join(','),...dataRows.map(r=>r.join(',')),
-    '','=== RESUMEN POR LOTE x AMBIENTE x RECURSO ===',
-    ['Lote','Ambiente','Recurso','n',...colH].join(','),...resRows,
-    '','=== RESUMEN POR LOTE ===',
-    ['Lote','n',...colH].join(','),...loteRows
+    '','=== RESUMEN POR LOTE x AMBIENTE x RECURSO ===',['Lote','Ambiente','Recurso','n',...colH].join(','),...resRows,
+    '','=== RESUMEN POR LOTE ===',['Lote','n',...colH].join(','),...loteRows
   ].join('\n');
-
-  dlFile('panel_relevamiento_'+new Date().toISOString().slice(0,10)+'.csv',
-    'data:text/csv;charset=utf-8,'+encodeURIComponent(csv));
+  dlFile('panel_'+new Date().toISOString().slice(0,10)+'.csv','data:text/csv;charset=utf-8,'+encodeURIComponent(csv));
 }
-
 function exportGeoJSON(){
-  if(!allWP.length){alert('Sin datos.');return;}
+  const wps=filteredWP;if(!wps.length){alert('Sin datos.');return;}
   dlFile('relevamiento.geojson','data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify({
     type:'FeatureCollection',
-    features:allWP.map(wp=>({type:'Feature',
-      geometry:{type:'Point',coordinates:[wp.lng,wp.lat]},
-      properties:{tecnico:wp.tecnico,lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,kgMS:wp.kgMS,calidad:wp.calidad,notas:wp.notas,ts:wp.ts,...wp.extras}
+    features:wps.map(wp=>({type:'Feature',geometry:{type:'Point',coordinates:[wp.lng,wp.lat]},
+      properties:{tecnico:wp.tecnico,campo:wp.campo,lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,kgMS:wp.kgMS,calidad:wp.calidad,notas:wp.notas,ts:wp.ts,...wp.extras}
     }))
   },null,2)));
 }
-
 function dlFile(name,uri){const a=document.createElement('a');a.href=uri;a.download=name;a.click();}
 
 // ─── TABS ─────────────────────────────────────────────────────────────────────
@@ -543,12 +525,6 @@ function showTab(id,btn){
   btn.classList.add('active');
 }
 
-// ─── LEAFLET LABEL STYLE ──────────────────────────────────────────────────────
-const style=document.createElement('style');
-style.textContent=`.lote-label{background:transparent;border:none;box-shadow:none;font-size:.75rem;font-weight:700;color:#1565c0;text-shadow:0 0 3px #fff,-1px -1px 0 #fff,1px 1px 0 #fff}`;
-document.head.appendChild(style);
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
 loadData();
 </script>
 </body>
