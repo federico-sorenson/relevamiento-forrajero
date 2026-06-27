@@ -183,7 +183,7 @@ function h2(v){return v.toString(16).padStart(2,'0');}
 // ─── MAP ─────────────────────────────────────────────────────────────────────
 const map=L.map('map').setView([-34.6,-60.5],10);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM',maxZoom:19}).addTo(map);
-let wpLayerGroup=L.layerGroup().addTo(map);
+let wpLayerGroup=L.featureGroup().addTo(map);
 
 // ─── LOAD DATA ───────────────────────────────────────────────────────────────
 async function loadData(){
