@@ -47,12 +47,10 @@ nav h1{font-size:1rem;font-weight:700;flex:1}
 .detected-badge{background:var(--verde-ll);border:1.5px solid var(--verde-l);color:var(--verde);border-radius:8px;padding:9px 10px;font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:6px;min-height:40px}
 .btn-primary{width:100%;padding:13px;background:var(--verde);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px}
 .btn-secondary{width:100%;padding:11px;background:var(--gris-l);color:var(--gris);border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;margin-top:6px}
-/* MIC BUTTON */
 .input-mic-row{display:flex;gap:6px;align-items:center}
 .input-mic-row input,.input-mic-row select,.input-mic-row textarea{flex:1}
-.btn-mic{width:36px;height:36px;min-width:36px;border-radius:50%;border:1.5px solid #cfd8dc;background:#f5f5f5;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:.15s}
+.btn-mic{width:36px;height:36px;min-width:36px;border-radius:50%;border:1.5px solid #cfd8dc;background:#f5f5f5;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .btn-mic.active{background:#ffebee;border-color:#e53935;animation:pulse 1s infinite}
-
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 .config-section{background:#fff;margin:10px;border-radius:12px;padding:14px;box-shadow:var(--shadow)}
 .config-section h3{font-size:.88rem;font-weight:700;color:var(--verde);margin-bottom:12px}
@@ -87,8 +85,6 @@ tr:last-child td{border:none}
 .badge{padding:2px 7px;border-radius:10px;font-size:.7rem;font-weight:700}
 .badge-lote{background:var(--azul-l);color:var(--azul)}
 .empty-state{text-align:center;color:#90a4ae;padding:40px 20px;font-size:.9rem}
-
-/* EXPORT SCREEN */
 .export-screen{padding:12px;display:flex;flex-direction:column;gap:10px}
 .export-card{background:#fff;border-radius:12px;padding:16px;box-shadow:var(--shadow)}
 .export-card h3{font-size:.9rem;font-weight:700;color:var(--azul);margin-bottom:6px}
@@ -102,7 +98,6 @@ tr:last-child td{border:none}
 .sync-status.ok{background:var(--verde-ll);color:var(--verde)}
 .sync-status.err{background:#ffebee;color:#c62828}
 .pending-count{font-size:.8rem;color:var(--naranja);font-weight:600;margin-bottom:8px}
-
 .wp-list{padding:10px;display:flex;flex-direction:column;gap:8px}
 .wp-card{background:#fff;border-radius:10px;padding:12px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:flex-start}
 .wp-icon{width:36px;height:36px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
@@ -111,12 +106,15 @@ tr:last-child td{border:none}
 .wp-meta{font-size:.72rem;color:#90a4ae;margin-top:2px}
 .wp-vals{font-size:.75rem;color:var(--gris);margin-top:4px}
 .wp-del{background:none;border:none;color:#ef9a9a;font-size:1.2rem;cursor:pointer;padding:4px}
-.wp-sync-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
 .layer-type-btn{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border:1.5px solid var(--gris-l);border-radius:10px;background:#fff;margin-bottom:8px;cursor:pointer;text-align:left}
 .layer-type-btn:hover{border-color:var(--verde);background:var(--verde-ll)}
 .lt-icon{font-size:1.5rem;width:36px;text-align:center}
 .lt-title{font-weight:700;font-size:.9rem}
 .lt-desc{font-size:.75rem;color:#90a4ae}
+.map-legend{position:absolute;bottom:80px;left:8px;z-index:999;background:rgba(255,255,255,.95);border-radius:8px;padding:7px 9px;box-shadow:var(--shadow);width:auto;max-width:140px;max-height:180px;overflow-y:auto;display:none}
+.map-legend h4{font-size:.72rem;font-weight:700;color:var(--gris);margin-bottom:6px;text-transform:uppercase}
+.amb-hover-tip{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(0,0,0,.75);color:#fff;font-size:.82rem;font-weight:600;padding:5px 14px;border-radius:20px;pointer-events:none;display:none;white-space:nowrap;align-items:center;gap:7px}
+.leaflet-tooltip.lote-label{background:transparent;border:none;box-shadow:none;font-size:.75rem;font-weight:700;color:#1565c0;text-shadow:0 0 3px #fff,-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff;pointer-events:none}
 </style>
 </head>
 <body>
@@ -166,7 +164,7 @@ tr:last-child td{border:none}
     </div>
     <div class="export-card">
       <h3>⬇️ Exportar datos</h3>
-      <p>Descargá todos los datos (locales + nube) incluyendo resumen de promedios ponderados.</p>
+      <p>Descargá todos los datos incluyendo resumen de promedios ponderados.</p>
       <button class="btn-dl btn-dl-csv" onclick="exportCSV()">📄 Exportar CSV completo</button>
       <button class="btn-dl btn-dl-geo" onclick="exportGeoJSON()">🗺️ Exportar GeoJSON</button>
     </div>
@@ -194,6 +192,14 @@ tr:last-child td{border:none}
     <button class="btn-primary" style="margin-top:10px" onclick="applyAmbienteNames()">✅ Aplicar nombres al mapa</button>
   </div>
   <div class="config-section">
+    <h3>🏠 Campos / Establecimientos</h3>
+    <div class="tag-list" id="establecimientosList"></div>
+    <div class="add-row">
+      <input type="text" id="newEstablecimiento" placeholder="Ej: La Esperanza, El Muerto"/>
+      <button onclick="addEstablecimiento()">+ Agregar</button>
+    </div>
+  </div>
+  <div class="config-section">
     <h3>🌾 Tipos de recurso forrajero</h3>
     <div class="tag-list" id="recursoList"></div>
     <div class="add-row">
@@ -218,6 +224,14 @@ tr:last-child td{border:none}
     <div class="field-group">
       <label>Coordenadas GPS</label>
       <input type="text" id="wpCoords" readonly/>
+    </div>
+    <div class="field-group">
+      <label>Campo / Establecimiento</label>
+      <div class="input-mic-row">
+        <select id="wpCampo"></select>
+        <button class="btn-mic" onclick="micToField('wpCampoCustom')" title="Dictar campo">🎙️</button>
+      </div>
+      <input type="text" id="wpCampoCustom" placeholder="O escribí / dictá el campo..." style="margin-top:6px;width:100%;padding:9px 10px;border:1.5px solid #cfd8dc;border-radius:8px;font-size:.9rem"/>
     </div>
     <div class="row2">
       <div class="field-group">
@@ -287,43 +301,21 @@ tr:last-child td{border:none}
 </div>
 
 <script>
-// ─── SUPABASE CONFIG ──────────────────────────────────────────────────────────
-const SB_URL = 'https://gjmeinjybshssyqyfamo.supabase.co';
-const SB_KEY = 'sb_publishable_SyjOCfEf2Gr8W_TbaEsDAg_wR9ecbY6';
+const SB_URL='https://gjmeinjybshssyqyfamo.supabase.co';
+const SB_KEY='sb_publishable_SyjOCfEf2Gr8W_TbaEsDAg_wR9ecbY6';
 
-async function sbFetch(path, opts={}){
-  const res = await fetch(SB_URL+path, {
-    ...opts,
-    headers:{
-      'apikey': SB_KEY,
-      'Authorization': 'Bearer '+SB_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=representation',
-      ...(opts.headers||{})
-    }
-  });
-  if(!res.ok){ const t=await res.text(); throw new Error(t); }
-  const txt = await res.text();
-  return txt ? JSON.parse(txt) : [];
-}
-
-// ─── COLOR UTILS ─────────────────────────────────────────────────────────────
-function dnToHex(dn){
-  const n=parseInt(dn); if(isNaN(n)) return null;
-  if(n>65535){ const r=(n>>16)&0xFF,g=(n>>8)&0xFF,b=n&0xFF; return `#${h2(r)}${h2(g)}${h2(b)}`; }
-  return null;
-}
+function dnToHex(dn){const n=parseInt(dn);if(isNaN(n))return null;if(n>65535){const r=(n>>16)&0xFF,g=(n>>8)&0xFF,b=n&0xFF;return`#${h2(r)}${h2(g)}${h2(b)}`;}return null;}
 function h2(v){return v.toString(16).padStart(2,'0');}
 const PAL=['#e53935','#8e24aa','#1e88e5','#00897b','#f4511e','#c0ca33','#6d4c41','#039be5','#43a047','#fdd835','#d81b60','#3949ab','#00acc1','#7cb342','#fb8c00','#b71c1c','#4a148c','#01579b','#1b5e20','#e65100'];
 function palColor(i){return PAL[i%PAL.length];}
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
 const state={
   pos:null,
-  waypoints:[],       // locales
-  allWaypoints:[],    // locales + nube (para resumen y export)
+  waypoints:[],
+  allWaypoints:[],
   recursos:['Campo natural','Pastura','Cultivo'],
   campos:[],
+  establecimientos:[],
   layers:[],
   ambienteMap:{},
   pendingLayerType:null,
@@ -334,16 +326,20 @@ const state={
 try{state.waypoints=JSON.parse(localStorage.getItem('wps_v4')||'[]');}catch(e){}
 try{state.recursos=JSON.parse(localStorage.getItem('recursos')||JSON.stringify(state.recursos));}catch(e){}
 try{state.campos=JSON.parse(localStorage.getItem('campos')||JSON.stringify(state.campos));}catch(e){}
+try{state.establecimientos=JSON.parse(localStorage.getItem('establecimientos')||'[]');}catch(e){}
 try{state.ambienteMap=JSON.parse(localStorage.getItem('ambienteMap')||'{}');}catch(e){}
 try{state.tecnico=localStorage.getItem('tecnico')||'';}catch(e){}
 state.allWaypoints=[...state.waypoints];
 
 function saveWPs(){localStorage.setItem('wps_v4',JSON.stringify(state.waypoints));}
-function saveCfg(){localStorage.setItem('recursos',JSON.stringify(state.recursos));localStorage.setItem('campos',JSON.stringify(state.campos));}
+function saveCfg(){
+  localStorage.setItem('recursos',JSON.stringify(state.recursos));
+  localStorage.setItem('campos',JSON.stringify(state.campos));
+  localStorage.setItem('establecimientos',JSON.stringify(state.establecimientos));
+}
 function saveAmbMap(){localStorage.setItem('ambienteMap',JSON.stringify(state.ambienteMap));}
 function saveTecnico(){state.tecnico=document.getElementById('tecnicoNombre').value.trim();localStorage.setItem('tecnico',state.tecnico);}
 
-// ─── MAP ─────────────────────────────────────────────────────────────────────
 const map=L.map('map',{zoomControl:false}).setView([-34.6,-60.5],10);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OSM',maxZoom:19}).addTo(map);
 L.control.zoom({position:'topleft'}).addTo(map);
@@ -352,7 +348,7 @@ const wpMarkers=[];
 
 function centerGPS(){if(state.pos)map.setView([state.pos.lat,state.pos.lng],16);}
 navigator.geolocation&&navigator.geolocation.watchPosition(p=>{
-  const {latitude:lat,longitude:lng,accuracy}=p.coords;
+  const{latitude:lat,longitude:lng,accuracy}=p.coords;
   state.pos={lat,lng,accuracy};
   const b=document.getElementById('gpsBadge');
   b.textContent=`📍 ±${Math.round(accuracy)}m`;b.className='gps-badge ok';
@@ -360,20 +356,12 @@ navigator.geolocation&&navigator.geolocation.watchPosition(p=>{
   else posMarker.setLatLng([lat,lng]);
 },()=>{document.getElementById('gpsBadge').textContent='📍 Sin señal';},{enableHighAccuracy:true,maximumAge:3000});
 
-// ─── SYNC ─────────────────────────────────────────────────────────────────────
 function updateSyncBadge(){
   const pending=state.waypoints.filter(w=>!w.sincronizado).length;
   const badge=document.getElementById('syncBadge');
   const countEl=document.getElementById('pendingCount');
-  if(pending>0){
-    badge.textContent=`☁️ ${pending} pendiente${pending>1?'s':''}`;
-    badge.className='sync-badge pending';
-    if(countEl) countEl.textContent=`⚠️ ${pending} waypoint${pending>1?'s':''}  sin sincronizar`;
-  } else {
-    badge.textContent='☁️ Sincronizado';
-    badge.className='sync-badge synced';
-    if(countEl) countEl.textContent='✅ Todo sincronizado';
-  }
+  if(pending>0){badge.textContent=`☁️ ${pending} pendiente${pending>1?'s':''}`;badge.className='sync-badge pending';if(countEl)countEl.textContent=`⚠️ ${pending} waypoint${pending>1?'s':''} sin sincronizar`;}
+  else{badge.textContent='☁️ Sincronizado';badge.className='sync-badge synced';if(countEl)countEl.textContent='✅ Todo sincronizado';}
 }
 updateSyncBadge();
 
@@ -381,155 +369,111 @@ async function syncNow(){
   const statusEl=document.getElementById('syncStatus');
   const btn=document.getElementById('btnSync');
   if(statusEl){statusEl.textContent='⏳ Sincronizando...';statusEl.className='sync-status';}
-  if(btn) btn.disabled=true;
+  if(btn)btn.disabled=true;
   try{
-    // 1. Subir pendientes
     const pending=state.waypoints.filter(w=>!w.sincronizado);
     if(pending.length>0){
       const rows=pending.map(wp=>({
-        id:wp.id, tecnico:wp.tecnico||state.tecnico||'Sin nombre',
-        lat:wp.lat, lng:wp.lng,
-        lote:wp.lote, ambiente:wp.ambiente,
-        recurso:wp.recurso, kg_ms:wp.kgMS, calidad:wp.calidad,
-        extras:wp.extras||{},
-        notas:wp.notas||'', transcripcion:wp.transcripcion||'',
-        ts:wp.ts, sincronizado:true
+        id:wp.id,tecnico:wp.tecnico||state.tecnico||'Sin nombre',
+        lat:wp.lat,lng:wp.lng,lote:wp.lote,ambiente:wp.ambiente,
+        campo:wp.campo||'',
+        recurso:wp.recurso,kg_ms:wp.kgMS,calidad:wp.calidad,
+        extras:wp.extras||{},notas:wp.notas||'',transcripcion:wp.transcripcion||'',
+        ts:wp.ts,sincronizado:true
       }));
-      await sbFetch('/rest/v1/waypoints',{
-        method:'POST',
-        headers:{'Prefer':'resolution=merge-duplicates'},
-        body:JSON.stringify(rows)
-      });
-      // Marcar como sincronizados localmente
+      await fetch(SB_URL+'/rest/v1/waypoints',{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},body:JSON.stringify(rows)});
       state.waypoints.forEach(w=>{if(!w.sincronizado)w.sincronizado=true;});
       saveWPs();
     }
-
-    // 2. Descargar todos (de todos los técnicos)
-    const todos=await sbFetch('/rest/v1/waypoints?select=*&order=ts.asc');
+    const res=await fetch(SB_URL+'/rest/v1/waypoints?select=*&order=ts.asc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const todos=await res.json();
     state.allWaypoints=todos.map(r=>({
-      id:r.id, tecnico:r.tecnico, lat:r.lat, lng:r.lng,
-      lote:r.lote, ambiente:r.ambiente, recurso:r.recurso,
-      kgMS:r.kg_ms, calidad:r.calidad, extras:r.extras||{},
-      notas:r.notas, transcripcion:r.transcripcion, ts:r.ts,
-      sincronizado:true
+      id:r.id,tecnico:r.tecnico,lat:r.lat,lng:r.lng,
+      lote:r.lote,ambiente:r.ambiente,campo:r.campo||'',
+      recurso:r.recurso,kgMS:r.kg_ms,calidad:r.calidad,
+      extras:r.extras||{},notas:r.notas,transcripcion:r.transcripcion,ts:r.ts,sincronizado:true
     }));
-
-    // Actualizar marcadores con todos
-    wpMarkers.forEach(m=>map.removeLayer(m));
-    wpMarkers.length=0;
+    wpMarkers.forEach(m=>map.removeLayer(m));wpMarkers.length=0;
     state.allWaypoints.forEach(addWPMarker);
-
     updateSyncBadge();
-    const msg=`✅ Sincronizado — ${state.allWaypoints.length} waypoints totales (${pending.length} subidos)`;
-    if(statusEl){statusEl.textContent=msg;statusEl.className='sync-status ok';}
-    renderWPList();
-    renderResumen();
+    if(statusEl){statusEl.textContent=`✅ Sincronizado — ${state.allWaypoints.length} waypoints totales`;statusEl.className='sync-status ok';}
+    renderWPList();renderResumen();
   }catch(e){
-    const msg='❌ Error: '+e.message;
-    if(statusEl){statusEl.textContent=msg;statusEl.className='sync-status err';}
-    console.error(e);
+    if(statusEl){statusEl.textContent='❌ Error: '+e.message;statusEl.className='sync-status err';}
   }
-  if(btn) btn.disabled=false;
+  if(btn)btn.disabled=false;
 }
-
-// Auto-sync al detectar conexión
 window.addEventListener('online',()=>syncNow());
 
-// ─── CAPAS ───────────────────────────────────────────────────────────────────
-function triggerFileLoad(tipo){
-  state.pendingLayerType=tipo;
-  closeModal('modalLayerType');
-  document.getElementById('fileInput').value='';
-  document.getElementById('fileInput').click();
-}
+const LAYER_COLORS={lotes:'#1565c0',ambientes:null,extra:'#e65100'};
+const LAYER_LABELS={lotes:'Lotes',ambientes:'Ambientes',extra:'Extra'};
+
+function triggerFileLoad(tipo){state.pendingLayerType=tipo;closeModal('modalLayerType');document.getElementById('fileInput').value='';document.getElementById('fileInput').click();}
 
 async function loadLayer(input){
-  const file=input.files[0]; if(!file) return;
+  const file=input.files[0];if(!file)return;
   const tipo=state.pendingLayerType;
   const status=document.getElementById('layerStatus');
-  status.textContent='⏳ Cargando '+file.name+'...'; status.className='status-msg';
+  status.textContent='⏳ Cargando '+file.name+'...';status.className='status-msg';
   try{
     const text=await file.text();
     let gj=JSON.parse(text);
-    if(gj.type==='Feature') gj={type:'FeatureCollection',features:[gj]};
-    if(!gj.features||!gj.features.length) throw new Error('Sin features');
+    if(gj.type==='Feature')gj={type:'FeatureCollection',features:[gj]};
+    if(!gj.features||!gj.features.length)throw new Error('Sin features');
     const keys=Object.keys(gj.features[0].properties||{});
     const prefL=['Name','name','NOMBRE','nombre','LOTE','lote','ID','id'];
     const prefA=['ambiente','AMBIENTE','DN','dn','tipo','TIPO','clase','CLASE'];
     let campo=keys[0]||'id';
-    if(tipo==='lotes') campo=prefL.find(k=>keys.includes(k))||keys[0]||'id';
-    if(tipo==='ambientes') campo=prefA.find(k=>keys.includes(k))||keys[0]||'id';
-
+    if(tipo==='lotes')campo=prefL.find(k=>keys.includes(k))||keys[0]||'id';
+    if(tipo==='ambientes')campo=prefA.find(k=>keys.includes(k))||keys[0]||'id';
     if(tipo==='ambientes'){
       const uniq=[...new Set(gj.features.map(f=>String(f.properties[campo]||'')))];
       const isDN=!isNaN(parseInt(uniq[0]))&&parseInt(uniq[0])>65535;
-      uniq.forEach((val,idx)=>{
-        if(!state.ambienteMap[val]){
-          state.ambienteMap[val]={color:isDN?dnToHex(val)||palColor(idx):palColor(idx),nombre:'',isDN};
-        }
-      });
+      uniq.forEach((val,idx)=>{if(!state.ambienteMap[val])state.ambienteMap[val]={color:isDN?dnToHex(val)||palColor(idx):palColor(idx),nombre:'',isDN};});
       saveAmbMap();
     }
-
     const lLayer=L.geoJSON(gj,{
       style:f=>{
-        if(tipo==='ambientes'){
-          const val=String(f.properties[campo]||'');
-          const e=state.ambienteMap[val];
-          return {color:'#333',weight:1,fillColor:e?e.color:'#888',fillOpacity:0.55};
-        }
-        if(tipo==='lotes') return {color:'#1565c0',weight:2.5,fillOpacity:0,dashArray:'6 3'};
-        return {color:'#e65100',weight:2,fillOpacity:0};
+        if(tipo==='ambientes'){const val=String(f.properties[campo]||'');const e=state.ambienteMap[val];return{color:'#333',weight:1,fillColor:e?e.color:'#888',fillOpacity:0.55};}
+        if(tipo==='lotes')return{color:'#1565c0',weight:2.5,fillOpacity:0,dashArray:'6 3'};
+        return{color:'#e65100',weight:2,fillOpacity:0};
       },
       pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:6,color:'#e65100',fillColor:'#e65100',fillOpacity:.9,weight:2}),
       onEachFeature:(f,l)=>{
         const val=String(f.properties[campo]||'');
-        if(tipo==='lotes'){
-          const lbl=val||'Sin nombre';
-          l.bindTooltip(lbl,{permanent:true,direction:'center',className:'lote-label'});
-        } else if(tipo==='ambientes'){
-          l.on('mouseover click',()=>showAmbTip(val));
-          l.on('mouseout',hideAmbTip);
-        } else {
-          if(val) l.bindTooltip(val,{permanent:false,sticky:true});
-        }
+        if(tipo==='lotes'){l.bindTooltip(val,{permanent:true,direction:'center',className:'lote-label'});}
+        else if(tipo==='ambientes'){l.on('mouseover click',()=>showAmbTip(val));l.on('mouseout',hideAmbTip);}
+        else{if(val)l.bindTooltip(val,{permanent:false,sticky:true});}
       }
     }).addTo(map);
-
     const b=lLayer.getBounds();
-    if(b.isValid()) map.fitBounds(b,{padding:[20,20]});
+    if(b.isValid())map.fitBounds(b,{padding:[20,20]});
     state.layers.push({id:Date.now(),tipo,name:file.name,geojson:gj,leafletLayer:lLayer,campoNombre:campo,featureCount:gj.features.length});
     renderLayerList();
     if(tipo==='ambientes'){renderAmbEditor();document.getElementById('ambEditorSection').style.display='block';renderLegend();setupMapAmbienteTip();}
-    status.textContent=`✅ ${tipo}: ${file.name} (${gj.features.length} polígonos)`; status.className='status-msg ok';
+    status.textContent=`✅ ${LAYER_LABELS[tipo]}: ${file.name} (${gj.features.length} polígonos)`;status.className='status-msg ok';
   }catch(e){status.textContent='❌ '+e.message;status.className='status-msg err';}
 }
 
 function removeLayer(id){
-  const idx=state.layers.findIndex(l=>l.id===id); if(idx===-1) return;
-  map.removeLayer(state.layers[idx].leafletLayer);
-  state.layers.splice(idx,1);
-  renderLayerList();
-  if(!state.layers.some(l=>l.tipo==='ambientes')) document.getElementById('ambEditorSection').style.display='none';
+  const idx=state.layers.findIndex(l=>l.id===id);if(idx===-1)return;
+  map.removeLayer(state.layers[idx].leafletLayer);state.layers.splice(idx,1);renderLayerList();
+  if(!state.layers.some(l=>l.tipo==='ambientes'))document.getElementById('ambEditorSection').style.display='none';
   document.getElementById('layerStatus').textContent=state.layers.length?`${state.layers.length} capa(s)`:'Sin capas cargadas';
   document.getElementById('layerStatus').className='status-msg';
 }
 
 function renderLayerList(){
   const el=document.getElementById('layerList');
-  const LCOLORS={lotes:'#1565c0',ambientes:'#2e7d32',extra:'#e65100'};
-  const LLABELS={lotes:'Lotes',ambientes:'Ambientes',extra:'Extra'};
   el.innerHTML=state.layers.map(l=>`
     <div class="layer-item">
-      <div class="layer-dot" style="background:${LCOLORS[l.tipo]}"></div>
-      <div class="layer-info"><div class="layer-name">${LLABELS[l.tipo]}: ${l.name}</div>
+      <div class="layer-dot" style="background:${LAYER_COLORS[l.tipo]||'#2e7d32'}"></div>
+      <div class="layer-info"><div class="layer-name">${LAYER_LABELS[l.tipo]}: ${l.name}</div>
       <div class="layer-meta">${l.featureCount} polígonos · campo: "${l.campoNombre}"</div></div>
       <button class="layer-del" onclick="removeLayer(${l.id})">🗑</button>
     </div>`).join('');
 }
 
-// ─── EDITOR AMBIENTES ─────────────────────────────────────────────────────────
 function renderAmbEditor(){
   const el=document.getElementById('ambEditor');
   el.innerHTML=Object.entries(state.ambienteMap).map(([val,info])=>`
@@ -543,13 +487,8 @@ function renderAmbEditor(){
     </div>`).join('');
 }
 function updateAmbNombre(el){if(state.ambienteMap[el.dataset.val])state.ambienteMap[el.dataset.val].nombre=el.value.trim();saveAmbMap();}
-function updateAmbColor(el){
-  if(state.ambienteMap[el.dataset.val]){
-    state.ambienteMap[el.dataset.val].color=el.value;
-    el.parentElement.querySelector('.amb-swatch').style.background=el.value;
-    saveAmbMap();
-  }
-}
+function updateAmbColor(el){if(state.ambienteMap[el.dataset.val]){state.ambienteMap[el.dataset.val].color=el.value;el.parentElement.querySelector('.amb-swatch').style.background=el.value;saveAmbMap();}}
+
 function applyAmbienteNames(){
   state.layers.filter(l=>l.tipo==='ambientes').forEach(layer=>{
     map.removeLayer(layer.leafletLayer);
@@ -562,20 +501,39 @@ function applyAmbienteNames(){
       }
     }).addTo(map);
   });
-  renderLegend();
-  setupMapAmbienteTip();
+  renderLegend();setupMapAmbienteTip();
   alert('✅ Nombres y colores aplicados');
 }
 
-// ─── TOOLTIP AMBIENTE EN MAPA (listener único) ───────────────────────────────
+function renderLegend(){
+  const ambLayer=state.layers.find(l=>l.tipo==='ambientes');
+  const legend=document.getElementById('mapLegend');
+  const items=document.getElementById('legendItems');
+  if(!ambLayer){legend.style.display='none';return;}
+  const seen={};
+  for(const feat of ambLayer.geojson.features){
+    const val=String(feat.properties?.[ambLayer.campoNombre]||'');
+    if(seen[val])continue;
+    const entry=state.ambienteMap[val];
+    seen[val]={color:entry?.color||'#888',nombre:(entry?.nombre&&entry.nombre!=='')?entry.nombre:val};
+  }
+  const entries=Object.values(seen);
+  if(!entries.length){legend.style.display='none';return;}
+  items.innerHTML=entries.map(e=>`
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;white-space:nowrap">
+      <span style="display:block;width:16px;height:16px;min-width:16px;border-radius:3px;background:${e.color};border:1px solid rgba(0,0,0,.25);flex-shrink:0"></span>
+      <span style="font-size:.74rem;color:#222">${e.nombre}</span>
+    </div>`).join('');
+  legend.style.display='block';
+}
+
 let ambTipTimer=null;
 function setupMapAmbienteTip(){
-  // Remover listeners previos
   map.off('mousemove click');
-  map.on('mousemove click', e=>{
-    const {lat,lng}=e.latlng;
+  map.on('mousemove click',e=>{
+    const{lat,lng}=e.latlng;
     const ambLayer=state.layers.find(l=>l.tipo==='ambientes');
-    if(!ambLayer) return;
+    if(!ambLayer)return;
     for(const feat of ambLayer.geojson.features){
       if(pointInFeature(lng,lat,feat)){
         const val=String(feat.properties?.[ambLayer.campoNombre]||'');
@@ -586,70 +544,35 @@ function setupMapAmbienteTip(){
         tip.innerHTML=`<span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:${color};border:1px solid rgba(255,255,255,.4);flex-shrink:0"></span>&nbsp;${nombre}`;
         tip.style.display='flex';
         clearTimeout(ambTipTimer);
-        ambTipTimer=setTimeout(()=>tip.style.display='none', e.type==='click'?3000:2000);
+        ambTipTimer=setTimeout(()=>tip.style.display='none',e.type==='click'?3000:2000);
         return;
       }
     }
-    // No está sobre ningún ambiente
     clearTimeout(ambTipTimer);
     document.getElementById('ambHoverTip').style.display='none';
   });
 }
-
-function showAmbTip(val){} // ya no se usa individualmente
+function showAmbTip(){}
 function hideAmbTip(){}
 
-function renderLegend(){
-  const ambLayer=state.layers.find(l=>l.tipo==='ambientes');
-  const legend=document.getElementById('mapLegend');
-  const items=document.getElementById('legendItems');
-  if(!ambLayer){legend.style.display='none';return;}
-
-  // Reconstruir entradas desde el geojson real para garantizar colores
-  const seen={};
-  for(const feat of ambLayer.geojson.features){
-    const val=String(feat.properties?.[ambLayer.campoNombre]||'');
-    if(seen[val]) continue;
-    const entry=state.ambienteMap[val];
-    const color=entry?.color||'#888';
-    const nombre=(entry?.nombre&&entry.nombre!=='')?entry.nombre:val;
-    seen[val]={color,nombre};
-  }
-
-  const entries=Object.values(seen);
-  if(!entries.length){legend.style.display='none';return;}
-
-  items.innerHTML=entries.map(e=>`
-    <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;white-space:nowrap">
-      <span style="display:block;width:16px;height:16px;min-width:16px;border-radius:3px;background:${e.color};border:1px solid rgba(0,0,0,.25);flex-shrink:0"></span>
-      <span style="font-size:.74rem;color:#222">${e.nombre}</span>
-    </div>`).join('');
-  legend.style.display='block';
-}
-
-// ─── DETECCIÓN GPS ────────────────────────────────────────────────────────────
 function detectInLayers(lat,lng){
   const r={lote:'Sin lote',ambiente:'Sin ambiente',ambColor:null};
   for(const layer of state.layers){
-    if(layer.tipo!=='lotes'&&layer.tipo!=='ambientes') continue;
+    if(layer.tipo!=='lotes'&&layer.tipo!=='ambientes')continue;
     for(const feat of layer.geojson.features){
       if(pointInFeature(lng,lat,feat)){
         const raw=String(feat.properties?.[layer.campoNombre]||'');
-        if(layer.tipo==='lotes') r.lote=raw;
-        if(layer.tipo==='ambientes'){
-          const e=state.ambienteMap[raw];
-          r.ambColor=e?.color||'#888';
-          r.ambiente=(e?.nombre&&e.nombre!=='')?e.nombre:raw;
-        }
+        if(layer.tipo==='lotes')r.lote=raw;
+        if(layer.tipo==='ambientes'){const e=state.ambienteMap[raw];r.ambColor=e?.color||'#888';r.ambiente=(e?.nombre&&e.nombre!=='')?e.nombre:raw;}
       }
     }
   }
   return r;
 }
-function pointInFeature(x,y,f){
-  const g=f.geometry; if(!g) return false;
-  const ps=g.type==='Polygon'?[g.coordinates]:g.type==='MultiPolygon'?g.coordinates:[];
-  for(const p of ps){if(pip(x,y,p[0]))return true;}
+function pointInFeature(x,y,feature){
+  const geom=feature.geometry;if(!geom)return false;
+  const polys=geom.type==='Polygon'?[geom.coordinates]:geom.type==='MultiPolygon'?geom.coordinates:[];
+  for(const poly of polys){if(pip(x,y,poly[0]))return true;}
   return false;
 }
 function pip(x,y,vs){
@@ -670,21 +593,20 @@ function polyAreaHa(coords){
   return Math.abs(area*R*R/2)/10000;
 }
 function getAmbArea(ambiente){
-  const al=state.layers.find(l=>l.tipo==='ambientes'); if(!al) return 1;
-  for(const f of al.geojson.features){
-    const raw=String(f.properties?.[al.campoNombre]||'');
+  const al=state.layers.find(l=>l.tipo==='ambientes');if(!al)return 1;
+  for(const feat of al.geojson.features){
+    const raw=String(feat.properties?.[al.campoNombre]||'');
     const e=state.ambienteMap[raw];
     const nom=(e?.nombre&&e.nombre!=='')?e.nombre:raw;
     if(nom===ambiente){
-      const g=f.geometry;
+      const g=feat.geometry;
       const c=g.type==='Polygon'?g.coordinates[0]:g.type==='MultiPolygon'?g.coordinates[0][0]:null;
-      if(c) return polyAreaHa(c);
+      if(c)return polyAreaHa(c);
     }
   }
   return 1;
 }
 
-// ─── WAYPOINT MODAL ───────────────────────────────────────────────────────────
 function openWaypointModal(){
   if(!state.pos){alert('Esperando señal GPS...');return;}
   document.getElementById('wpCoords').value=`${state.pos.lat.toFixed(6)}, ${state.pos.lng.toFixed(6)}`;
@@ -693,16 +615,15 @@ function openWaypointModal(){
   document.getElementById('wpAmbTxt').textContent=det.ambiente;
   const sw=document.getElementById('wpAmbSwatch');
   if(det.ambColor){sw.style.background=det.ambColor;sw.style.display='inline-block';}else sw.style.display='none';
+  document.getElementById('wpCampo').innerHTML=state.establecimientos.map(e=>`<option>${e}</option>`).join('');
   document.getElementById('wpRecurso').innerHTML=state.recursos.map(r=>`<option>${r}</option>`).join('');
   document.getElementById('camposExtra').innerHTML=state.campos.map(c=>`
     <div class="field-group"><label>${c}</label>
     <div class="input-mic-row">
-      <input type="number" class="campo-extra" data-campo="${c}" placeholder="0" step="any"/>
+      <input type="number" class="campo-extra" data-campo="${c}" placeholder="" step="any"/>
       <button class="btn-mic" onclick="micToField(this.previousElementSibling)" title="Dictar ${c}">🎙️</button>
     </div></div>`).join('');
-  ['wpKgMS','wpCalidad','wpNotas','wpRecursoCustom'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.value='';
-  });
+  ['wpKgMS','wpCalidad','wpNotas','wpCampoCustom','wpRecursoCustom'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.querySelectorAll('.campo-extra').forEach(el=>el.value='');
   document.getElementById('wpRecurso').selectedIndex=0;
   openModal('modalWP');
@@ -716,111 +637,63 @@ function saveWaypoint(){
     id:Date.now(),
     tecnico:state.tecnico||'Sin nombre',
     lat:coords[0],lng:coords[1],
+    campo:(document.getElementById('wpCampoCustom').value.trim())||document.getElementById('wpCampo').value||'',
     lote:document.getElementById('wpLoteTxt').textContent,
     ambiente:document.getElementById('wpAmbTxt').textContent,
-    recurso: (document.getElementById('wpRecursoCustom').value.trim()) || document.getElementById('wpRecurso').value,
+    recurso:(document.getElementById('wpRecursoCustom').value.trim())||document.getElementById('wpRecurso').value,
     kgMS:parseFloat(document.getElementById('wpKgMS').value)||0,
     calidad:parseFloat(document.getElementById('wpCalidad').value)||0,
     extras,
     notas:document.getElementById('wpNotas').value,
-    transcripcion:document.getElementById('wpTranscripcion').value,
+    transcripcion:'',
     ts:new Date().toISOString(),
     sincronizado:false
   };
   state.waypoints.push(wp);
   state.allWaypoints.push(wp);
-  saveWPs();
-  addWPMarker(wp);
-  updateSyncBadge();
-  closeModal('modalWP');
-  renderWPList();
-  renderResumen();
-  // intentar sync si hay red
-  if(navigator.onLine) syncNow();
+  saveWPs();addWPMarker(wp);updateSyncBadge();
+  closeModal('modalWP');renderWPList();renderResumen();
+  if(navigator.onLine)syncNow();
 }
 
 function addWPMarker(wp){
   const ambEntry=Object.entries(state.ambienteMap).find(([_,e])=>(e.nombre||_)===wp.ambiente);
   const color=ambEntry?ambEntry[1].color:'#e65100';
   const m=L.circleMarker([wp.lat,wp.lng],{radius:7,color:color,fillColor:color,fillOpacity:.9,weight:2})
-    .bindPopup(`<b>${wp.ambiente}</b><br>Lote: ${wp.lote}<br>${wp.recurso}<br>kgMS/ha: ${wp.kgMS}<br>Calidad: ${wp.calidad}<br>Técnico: ${wp.tecnico||'—'}`)
+    .bindPopup(`<b>${wp.ambiente}</b><br>Campo: ${wp.campo||'—'}<br>Lote: ${wp.lote}<br>${wp.recurso}<br>kgMS/ha: ${wp.kgMS}<br>Calidad: ${wp.calidad}<br>Técnico: ${wp.tecnico||'—'}`)
     .addTo(map);
   wpMarkers.push(m);
 }
 state.waypoints.forEach(addWPMarker);
 
-// ─── VOZ POR CAMPO ────────────────────────────────────────────────────────────
-let activeMicBtn=null;
-let activeRec=null;
-
+let activeMicBtn=null,activeRec=null;
 function micToField(targetOrId){
-  const target = typeof targetOrId==='string' ? document.getElementById(targetOrId) : targetOrId;
-  if(!target) return;
-
-  // Si ya hay un mic activo, detenerlo
-  if(activeRec){
-    activeRec.stop(); activeRec=null;
-    if(activeMicBtn){activeMicBtn.classList.remove('active');activeMicBtn.textContent='🎙️';}
-    activeMicBtn=null;
-    return;
-  }
-
+  const target=typeof targetOrId==='string'?document.getElementById(targetOrId):targetOrId;
+  if(!target)return;
+  if(activeRec){activeRec.stop();activeRec=null;if(activeMicBtn){activeMicBtn.classList.remove('active');activeMicBtn.textContent='🎙️';}activeMicBtn=null;return;}
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert('Reconocimiento de voz no disponible. Escribí el valor.');return;}
-
-  // Encontrar el botón mic correspondiente
-  const btn = target.parentElement?.querySelector('.btn-mic') ||
-              target.closest('.input-mic-row')?.querySelector('.btn-mic');
-
+  if(!SR){alert('Reconocimiento de voz no disponible.');return;}
+  const btn=target.parentElement?.querySelector('.btn-mic')||target.closest('.input-mic-row')?.querySelector('.btn-mic');
   const rec=new SR();
-  rec.lang='es-AR';
-  rec.continuous=false;
-  rec.interimResults=false;
-
-  rec.onstart=()=>{
-    activeRec=rec; activeMicBtn=btn;
-    if(btn){btn.classList.add('active');btn.textContent='⏹';}
-  };
-
+  rec.lang='es-AR';rec.continuous=false;rec.interimResults=false;
+  rec.onstart=()=>{activeRec=rec;activeMicBtn=btn;if(btn){btn.classList.add('active');btn.textContent='⏹';}};
   rec.onresult=e=>{
     const txt=e.results[0][0].transcript;
-    // Para campos numéricos: extraer número del texto
     const isNum=target.type==='number';
     if(isNum){
-      // Limpiar formato: "4.816,67" → 4816.67 / "4,816.67" → 4816.67
       let clean=txt.trim();
-      // Detectar si coma es decimal o miles
-      const hasPoint=clean.includes('.');
-      const hasComma=clean.includes(',');
-      if(hasPoint&&hasComma){
-        // formato con separador de miles: quitar el de miles, convertir decimal
-        if(clean.indexOf('.')< clean.indexOf(',')) clean=clean.replace(/\./g,'').replace(',','.');
-        else clean=clean.replace(/,/g,'');
-      } else if(hasComma){
-        clean=clean.replace(',','.');
-      }
+      const hasPoint=clean.includes('.');const hasComma=clean.includes(',');
+      if(hasPoint&&hasComma){if(clean.indexOf('.')<clean.indexOf(','))clean=clean.replace(/\./g,'').replace(',','.');else clean=clean.replace(/,/g,'');}
+      else if(hasComma)clean=clean.replace(',','.');
       clean=clean.replace(/[^\d.]/g,'');
       target.value=parseFloat(clean)||'';
-    } else {
-      target.value=(target.value?target.value+' ':'')+txt;
-    }
+    }else{target.value=(target.value?target.value+' ':'')+txt;}
   };
-
-  rec.onerror=()=>stopMic(btn);
-  rec.onend=()=>stopMic(btn);
-  rec.start();
+  rec.onerror=()=>stopMic(btn);rec.onend=()=>stopMic(btn);rec.start();
 }
-
-function stopMic(btn){
-  activeRec=null; activeMicBtn=null;
-  if(btn){btn.classList.remove('active');btn.textContent='🎙️';}
-}
-
-function toggleRecord(){} // legacy, no usado
-function startRecord(){}
+function stopMic(btn){activeRec=null;activeMicBtn=null;if(btn){btn.classList.remove('active');btn.textContent='🎙️';}}
 function stopRecord(){stopMic(activeMicBtn);}
 
-// ─── WP LIST ─────────────────────────────────────────────────────────────────
 function renderWPList(){
   const el=document.getElementById('wpList');
   const wps=state.allWaypoints;
@@ -831,15 +704,13 @@ function renderWPList(){
     const extStr=Object.entries(wp.extras||{}).map(([k,v])=>`${k}: ${v}`).join(' · ');
     const ambE=Object.entries(state.ambienteMap).find(([_,e])=>(e.nombre||_)===wp.ambiente);
     const color=ambE?ambE[1].color:'#e65100';
-    const synced=wp.sincronizado;
-    return `<div class="wp-card">
+    return`<div class="wp-card">
       <div class="wp-icon" style="background:${color}">📍</div>
       <div class="wp-info">
         <div class="wp-title">${wp.ambiente} — ${wp.recurso}</div>
-        <div class="wp-meta">${date} · <span class="badge badge-lote">${wp.lote}</span> · ${wp.tecnico||'—'} <span style="color:${synced?'#43a047':'#e65100'}">${synced?'☁️':'📲'}</span></div>
+        <div class="wp-meta">${date} · <span class="badge badge-lote">${wp.lote}</span>${wp.campo?' · '+wp.campo:''} · ${wp.tecnico||'—'} <span style="color:${wp.sincronizado?'#43a047':'#e65100'}">${wp.sincronizado?'☁️':'📲'}</span></div>
         <div class="wp-vals">kgMS: ${wp.kgMS} · Calidad: ${wp.calidad}${extStr?' · '+extStr:''}</div>
         ${wp.notas?`<div class="wp-vals">📝 ${wp.notas}</div>`:''}
-        ${wp.transcripcion?`<div class="wp-vals">🎙️ ${wp.transcripcion}</div>`:''}
       </div>
       ${!wp.sincronizado?`<button class="wp-del" onclick="deleteWP(${idx})">🗑</button>`:''}
     </div>`;
@@ -852,151 +723,95 @@ function deleteWP(idx){
   const wp=state.allWaypoints[state.allWaypoints.length-1-idx];
   state.waypoints=state.waypoints.filter(w=>w.id!==wp.id);
   state.allWaypoints.splice(state.allWaypoints.length-1-idx,1);
-  saveWPs();
-  wpMarkers.forEach(m=>map.removeLayer(m));wpMarkers.length=0;
-  state.allWaypoints.forEach(addWPMarker);
-  renderWPList();renderResumen();updateSyncBadge();
+  saveWPs();wpMarkers.forEach(m=>map.removeLayer(m));wpMarkers.length=0;
+  state.allWaypoints.forEach(addWPMarker);renderWPList();renderResumen();updateSyncBadge();
 }
 
-// ─── RESUMEN ─────────────────────────────────────────────────────────────────
 function renderResumen(){
   const el=document.getElementById('resumenArea');
   const wps=state.allWaypoints;
   if(!wps.length){el.innerHTML='<div class="empty-state">📊 Registrá waypoints para ver el resumen.</div>';return;}
   const numCampos=['kgMS','calidad',...state.campos];
-  function getVal(wp,c){return c==='kgMS'?wp.kgMS:c==='calidad'?wp.calidad:(wp.extras?.[c]||0);}
+  function getVal(wp,c){return c==='kgMS'?wp.kgMS:c==='calidad'?wp.calidad:(parseFloat(wp.extras?.[c])||0);}
   function avgP(wps2,campo){
     const vals=wps2.map(wp=>({v:getVal(wp,campo),a:getAmbArea(wp.ambiente)})).filter(x=>x.v>0);
-    if(!vals.length) return '-';
-    // Si todas las áreas son 1 (no se encontró área real), usar promedio simple
+    if(!vals.length)return'-';
     const allDefault=vals.every(x=>x.a===1);
-    if(allDefault) return (vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
+    if(allDefault)return(vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
     const tot=vals.reduce((a,x)=>a+x.a,0);
-    if(!tot) return (vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
-    return (vals.reduce((a,x)=>a+x.v*x.a,0)/tot).toFixed(1);
+    if(!tot)return(vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
+    return(vals.reduce((a,x)=>a+x.v*x.a,0)/tot).toFixed(1);
   }
   const colH=numCampos.map(c=>c==='kgMS'?'kgMS/ha':c==='calidad'?'Calidad':c);
   const groups={};
-  wps.forEach(wp=>{
-    const k=`${wp.lote}|||${wp.ambiente}|||${wp.recurso}`;
-    if(!groups[k])groups[k]={lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,wps:[]};
-    groups[k].wps.push(wp);
-  });
+  wps.forEach(wp=>{const k=`${wp.lote}|||${wp.ambiente}|||${wp.recurso}`;if(!groups[k])groups[k]={lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,wps:[]};groups[k].wps.push(wp);});
   const rows=Object.values(groups).sort((a,b)=>a.lote.localeCompare(b.lote)||a.ambiente.localeCompare(b.ambiente));
   const tbody=rows.map(g=>{
     const ae=Object.entries(state.ambienteMap).find(([_,e])=>(e.nombre||_)===g.ambiente);
     const ac=ae?ae[1].color:'#ccc';
-    return `<tr><td><span class="badge badge-lote">${g.lote}</span></td>
+    return`<tr><td><span class="badge badge-lote">${g.lote}</span></td>
       <td><span class="badge" style="background:${ac}20;color:${ac};border:1px solid ${ac}60">${g.ambiente}</span></td>
       <td>${g.recurso}</td><td>${g.wps.length}</td>
       ${numCampos.map(c=>`<td><b>${avgP(g.wps,c)}</b></td>`).join('')}</tr>`;
   }).join('');
-
   const byLote={};
   Object.values(groups).forEach(g=>{if(!byLote[g.lote])byLote[g.lote]={lote:g.lote,wps:[]};byLote[g.lote].wps.push(...g.wps);});
   const loteBody=Object.values(byLote).sort((a,b)=>a.lote.localeCompare(b.lote)).map(g=>`<tr>
     <td><span class="badge badge-lote">${g.lote}</span></td><td>${g.wps.length}</td>
     ${numCampos.map(c=>`<td><b>${avgP(g.wps,c)}</b></td>`).join('')}</tr>`).join('');
-
   el.innerHTML=`
-    <div class="resumen-card">
-      <h3>📊 Por Lote × Ambiente × Recurso</h3>
-      <div style="overflow-x:auto"><table>
-        <thead><tr><th>Lote</th><th>Ambiente</th><th>Recurso</th><th>n</th>${colH.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
-        <tbody>${tbody}</tbody></table></div>
+    <div class="resumen-card"><h3>📊 Por Lote × Ambiente × Recurso</h3>
+      <div style="overflow-x:auto"><table><thead><tr><th>Lote</th><th>Ambiente</th><th>Recurso</th><th>n</th>${colH.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${tbody}</tbody></table></div>
     </div>
-    <div class="resumen-card">
-      <h3>📊 Por Lote</h3>
-      <div style="overflow-x:auto"><table>
-        <thead><tr><th>Lote</th><th>n</th>${colH.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
-        <tbody>${loteBody}</tbody></table></div>
+    <div class="resumen-card"><h3>📊 Por Lote</h3>
+      <div style="overflow-x:auto"><table><thead><tr><th>Lote</th><th>n</th>${colH.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${loteBody}</tbody></table></div>
     </div>`;
 }
 renderResumen();
 
-// ─── EXPORT ──────────────────────────────────────────────────────────────────
 function exportCSV(){
-  const wps=state.allWaypoints;
-  if(!wps.length){alert('Sin datos.');return;}
+  const wps=state.allWaypoints;if(!wps.length){alert('Sin datos.');return;}
   const numCampos=['kgMS','calidad',...state.campos];
-  function getVal(wp,c){return c==='kgMS'?wp.kgMS:c==='calidad'?wp.calidad:(wp.extras?.[c]||0);}
+  function getVal(wp,c){return c==='kgMS'?wp.kgMS:c==='calidad'?wp.calidad:(parseFloat(wp.extras?.[c])||0);}
   function avgP(wps2,campo){
     const vals=wps2.map(wp=>({v:getVal(wp,campo),a:getAmbArea(wp.ambiente)})).filter(x=>x.v>0);
-    if(!vals.length) return '';
+    if(!vals.length)return'';
+    const allDefault=vals.every(x=>x.a===1);
+    if(allDefault)return(vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
     const tot=vals.reduce((a,x)=>a+x.a,0);
-    if(!tot) return (vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
-    return (vals.reduce((a,x)=>a+x.v*x.a,0)/tot).toFixed(1);
+    if(!tot)return(vals.reduce((a,x)=>a+x.v,0)/vals.length).toFixed(1);
+    return(vals.reduce((a,x)=>a+x.v*x.a,0)/tot).toFixed(1);
   }
-
-  // Hoja 1: datos crudos
-  const cols=['id','ts','tecnico','lote','ambiente','recurso','kgMS','calidad','lat','lng','notas','transcripcion',...state.campos];
-  const dataRows=wps.map(wp=>[
-    wp.id,wp.ts,wp.tecnico||'',wp.lote,wp.ambiente,wp.recurso,wp.kgMS,wp.calidad,wp.lat,wp.lng,
-    `"${(wp.notas||'').replace(/"/g,'""')}"`,
-    `"${(wp.transcripcion||'').replace(/"/g,'""')}"`,
-    ...state.campos.map(c=>wp.extras?.[c]||0)
-  ]);
-
-  // Hoja 2 simulada: resumen (en el mismo CSV, separado por líneas vacías)
+  const cols=['id','ts','tecnico','campo','lote','ambiente','recurso','kgMS','calidad','lat','lng','notas',...state.campos];
+  const dataRows=wps.map(wp=>[wp.id,wp.ts,wp.tecnico||'',wp.campo||'',wp.lote,wp.ambiente,wp.recurso,wp.kgMS,wp.calidad,wp.lat,wp.lng,`"${(wp.notas||'').replace(/"/g,'""')}"`, ...state.campos.map(c=>wp.extras?.[c]||0)]);
   const groups={};
-  wps.forEach(wp=>{
-    const k=`${wp.lote}|||${wp.ambiente}|||${wp.recurso}`;
-    if(!groups[k])groups[k]={lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,wps:[]};
-    groups[k].wps.push(wp);
-  });
-  const colH=['kgMS/ha','Calidad',...state.campos];
-  const resRows=Object.values(groups).sort((a,b)=>a.lote.localeCompare(b.lote)||a.ambiente.localeCompare(b.ambiente)).map(g=>
-    [g.lote,g.ambiente,g.recurso,g.wps.length,...numCampos.map(c=>avgP(g.wps,c))].join(',')
-  );
+  wps.forEach(wp=>{const k=`${wp.lote}|||${wp.ambiente}|||${wp.recurso}`;if(!groups[k])groups[k]={lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,wps:[]};groups[k].wps.push(wp);});
+  const resRows=Object.values(groups).sort((a,b)=>a.lote.localeCompare(b.lote)).map(g=>[g.lote,g.ambiente,g.recurso,g.wps.length,...numCampos.map(c=>avgP(g.wps,c))].join(','));
   const byLote={};
   Object.values(groups).forEach(g=>{if(!byLote[g.lote])byLote[g.lote]={lote:g.lote,wps:[]};byLote[g.lote].wps.push(...g.wps);});
-  const loteRows=Object.values(byLote).sort((a,b)=>a.lote.localeCompare(b.lote)).map(g=>
-    [g.lote,g.wps.length,...numCampos.map(c=>avgP(g.wps,c))].join(',')
-  );
-
-  const csv=[
-    '=== DATOS CRUDOS ===',
-    cols.join(','),
-    ...dataRows.map(r=>r.join(',')),
-    '','=== RESUMEN POR LOTE x AMBIENTE x RECURSO (prom. ponderado) ===',
-    ['Lote','Ambiente','Recurso','n',...colH].join(','),
-    ...resRows,
-    '','=== RESUMEN POR LOTE (prom. ponderado) ===',
-    ['Lote','n',...colH].join(','),
-    ...loteRows
-  ].join('\n');
-
-  dlFile('relevamiento_'+new Date().toISOString().slice(0,10)+'.csv',
-    'data:text/csv;charset=utf-8,'+encodeURIComponent(csv));
+  const loteRows=Object.values(byLote).sort((a,b)=>a.lote.localeCompare(b.lote)).map(g=>[g.lote,g.wps.length,...numCampos.map(c=>avgP(g.wps,c))].join(','));
+  const csv=['=== DATOS CRUDOS ===',cols.join(','),...dataRows.map(r=>r.join(',')),'','=== RESUMEN POR LOTE x AMBIENTE x RECURSO ===',['Lote','Ambiente','Recurso','n',...numCampos.map(c=>c==='kgMS'?'kgMS/ha':c==='calidad'?'Calidad':c)].join(','),...resRows,'','=== RESUMEN POR LOTE ===',['Lote','n',...numCampos.map(c=>c==='kgMS'?'kgMS/ha':c==='calidad'?'Calidad':c)].join(','),...loteRows].join('\n');
+  dlFile('relevamiento_'+new Date().toISOString().slice(0,10)+'.csv','data:text/csv;charset=utf-8,'+encodeURIComponent(csv));
 }
-
 function exportGeoJSON(){
-  const wps=state.allWaypoints;
-  if(!wps.length){alert('Sin datos.');return;}
-  dlFile('relevamiento.geojson','data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify({
-    type:'FeatureCollection',
-    features:wps.map(wp=>({
-      type:'Feature',
-      geometry:{type:'Point',coordinates:[wp.lng,wp.lat]},
-      properties:{tecnico:wp.tecnico,lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,kgMS:wp.kgMS,calidad:wp.calidad,notas:wp.notas,ts:wp.ts,...wp.extras}
-    }))
-  },null,2)));
+  const wps=state.allWaypoints;if(!wps.length){alert('Sin datos.');return;}
+  dlFile('relevamiento.geojson','data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify({type:'FeatureCollection',features:wps.map(wp=>({type:'Feature',geometry:{type:'Point',coordinates:[wp.lng,wp.lat]},properties:{tecnico:wp.tecnico,campo:wp.campo,lote:wp.lote,ambiente:wp.ambiente,recurso:wp.recurso,kgMS:wp.kgMS,calidad:wp.calidad,notas:wp.notas,ts:wp.ts,...wp.extras}}))},null,2)));
 }
 function dlFile(name,uri){const a=document.createElement('a');a.href=uri;a.download=name;a.click();}
 
-// ─── CONFIG LISTAS ────────────────────────────────────────────────────────────
 function renderTags(id,arr,fn){document.getElementById(id).innerHTML=arr.map((v,i)=>`<span class="tag">${v}<button onclick="${fn}(${i})">✕</button></span>`).join('');}
+function addEstablecimiento(){const v=document.getElementById('newEstablecimiento').value.trim();if(!v)return;state.establecimientos.push(v);document.getElementById('newEstablecimiento').value='';saveCfg();renderTags('establecimientosList',state.establecimientos,'removeEstablecimiento');}
+function removeEstablecimiento(i){state.establecimientos.splice(i,1);saveCfg();renderTags('establecimientosList',state.establecimientos,'removeEstablecimiento');}
 function addRecurso(){const v=document.getElementById('newRecurso').value.trim();if(!v)return;state.recursos.push(v);document.getElementById('newRecurso').value='';saveCfg();renderTags('recursoList',state.recursos,'removeRecurso');}
 function removeRecurso(i){state.recursos.splice(i,1);saveCfg();renderTags('recursoList',state.recursos,'removeRecurso');}
 function addCampo(){const v=document.getElementById('newCampo').value.trim();if(!v)return;state.campos.push(v);document.getElementById('newCampo').value='';saveCfg();renderTags('camposList',state.campos,'removeCampo');renderResumen();}
 function removeCampo(i){state.campos.splice(i,1);saveCfg();renderTags('camposList',state.campos,'removeCampo');renderResumen();}
+renderTags('establecimientosList',state.establecimientos,'removeEstablecimiento');
 renderTags('recursoList',state.recursos,'removeRecurso');
 renderTags('camposList',state.campos,'removeCampo');
 
-// Inicializar nombre técnico
 document.getElementById('tecnicoNombre').value=state.tecnico;
 
-// ─── MODALES / TABS ───────────────────────────────────────────────────────────
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');if(id==='modalWP')stopRecord();}
 function closeModalOutside(e,id){if(e.target===document.getElementById(id))closeModal(id);}
